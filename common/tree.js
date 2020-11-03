@@ -134,14 +134,24 @@ export function drag(state, { rundown, dragged, target, placement }) {
             ptr.splice(insertIdx, 0, ...toDelete.map(({ node }) => node))
         }
 
+        const deletedAtAddress = {}
+
         // delete the marked nodes
         for (let { idx, address } of toDelete) {
             let calc_idx = idx
+            if (deletedAtAddress[address]) {
+                deletedAtAddress[address].push(idx)
+            } else {
+                deletedAtAddress[address] = [idx]
+            }
             if (address === insertAddr) {
                 if (idx >= insertIdx) {
                     calc_idx += toDelete.length
                 }
             }
+            const offset = deletedAtAddress[address].reduce((prev, curr) => curr < idx ? prev + 1 : prev, 0)
+            calc_idx -= offset
+            console.log("deleting ", address, " ", calc_idx, offset)
             getStrAddressFromState(state, address).tree.splice(calc_idx,1)
         }
     }
