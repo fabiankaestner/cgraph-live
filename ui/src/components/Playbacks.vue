@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-list dense nav>
-      <v-list-item v-for="item in items" :key="item" link>
+      <v-list-item v-for="item in items" :key="item.id" link>
         <v-list-item-content>
-          <v-list-item-title v-text="item"></v-list-item-title>
+          <v-list-item-title v-text="item.name"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
