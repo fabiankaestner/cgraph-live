@@ -1,0 +1,13 @@
+{
+    "name": "cgraph-live",
+    "version": "0.1.0",
+    "author": "Fabian Kästner",
+    "license": "UNLICENSED",
+    "description": "web-based graphics playout for livestreams or events",
+    "private": "true",
+    "workspaces": [
+        "server",
+        "ui",
+        "common"
+    ]
+}

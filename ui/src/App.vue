@@ -6,8 +6,13 @@
           <Sidebar />
         </v-container>
       </v-col>
-      <v-col cols="5"></v-col>
-      <v-col cols="4"></v-col>
+      <v-col cols="3" class="d-flex">
+        <v-container class="d-flex">
+          <Selected />
+        </v-container>
+      </v-col>
+      <v-col cols="3" class="d-flex"></v-col>
+      <v-col cols="3" class="d-flex"></v-col>
     </v-row>
   </v-app>
 </template>
@@ -20,12 +25,14 @@
 
 <script>
 import Sidebar from "./components/Sidebar";
+import Selected from "./components/Selected";
 
 export default {
   name: "App",
 
   components: {
     Sidebar,
+    Selected,
   },
 
   data: () => ({}),

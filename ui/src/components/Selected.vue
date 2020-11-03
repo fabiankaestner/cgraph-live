@@ -7,36 +7,22 @@
       slider-color="primary"
       fixed-tabs
     >
-      <v-tab>Playbacks</v-tab>
-      <v-tab>Data</v-tab>
-      <v-tab>Rundowns</v-tab>
+      <v-tab>Rundown</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <v-tab-item key="Graphics">
-        <Playbacks />
-      </v-tab-item>
-      <v-tab-item key="Data">
-        <Data />
-      </v-tab-item>
-      <v-tab-item key="Rundowns">
-        <Rundowns />
+      <v-tab-item key="Rundown">
+        <Rundown />
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
-import Playbacks from "./Playbacks";
-import Data from "./Data";
-import Rundowns from "./Rundowns";
+import Rundown from "./Rundown"
 
 export default {
-  name: "Sidebar",
-  components: {
-    Playbacks,
-    Data,
-    Rundowns,
-  },
+  name: "Selected",
+  components: { Rundown },
   data: () => ({
     tab: null,
   }),
