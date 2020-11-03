@@ -28,7 +28,6 @@ export default {
       this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded });
     },
     handleDrop(dragged, { node, placement }) {
-      console.log(node)
       this.$store.commit("drag", {
         dragged,
         target: node,
@@ -45,10 +44,7 @@ export default {
         const rundown = getPathFromState(state, ["rundowns", "b1jj8s8zq7"]);
 
         if (rundown) {
-          // recursively go through the tree to display all items & groups
-          const test = transformStateToDisplayTree(state, rundown.tree, "");
-          console.log(test);
-          return test;
+          return transformStateToDisplayTree(state, rundown.tree, "");
         }
         return [];
       },

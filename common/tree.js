@@ -28,7 +28,6 @@ export function transformStateToDisplayTree(state, tree, parentGroup) {
 }
 
 export function addressFromString(str) {
-    console.log(str)
     const [type, ...path] = str.split("/")
 
     if (type === "playback") {
