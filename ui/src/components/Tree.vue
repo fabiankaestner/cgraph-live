@@ -1,28 +1,30 @@
 <template>
   <div>
-    <SlTree v-model="tree_data" ref="tree">
-      <template slot="title" slot-scope="{ node }">
-          <TreeItem :node="node" @expand="expand(node)"/>
-      </template>
-      <template slot="toggle"><div></div></template>
-    </SlTree>
+    <v-list dense nav>
+      <SlTree v-model="tree_data" ref="tree">
+        <template slot="title" slot-scope="{ node }">
+          <TreeItem :node="node" @expand="expand(node)" />
+        </template>
+        <template slot="toggle"><div></div></template>
+      </SlTree>
+    </v-list>
   </div>
 </template>
 
 <script>
-import SlTree from "sl-vue-tree"
-import TreeItem from "./TreeItem"
+import SlTree from "sl-vue-tree";
+import TreeItem from "./TreeItem";
 
 export default {
   name: "Tree",
   components: {
     SlTree,
-    TreeItem
+    TreeItem,
   },
   methods: {
     expand(node) {
-      this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded})
-    }
+      this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded });
+    },
   },
   data: () => ({
     tree_data: [
