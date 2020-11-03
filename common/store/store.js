@@ -5,6 +5,7 @@ import playbacks from "./playbacks"
 import local from "./local"
 import rundowns from "./rundowns"
 import groups from "./groups"
+import { drag } from "../tree"
 
 Vue.use(Vuex)
 
@@ -15,6 +16,9 @@ export default function createStore(plugins) {
             local,
             groups,
             rundowns
+        },
+        mutations: {
+            drag: drag
         },
         plugins
     })

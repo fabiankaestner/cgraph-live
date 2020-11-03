@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-list dense nav>
-      <SlTree v-model="tree_data" ref="tree">
+      <SlTree v-model="tree_data" ref="tree" @drop="handleDrop">
         <template slot="title" slot-scope="{ node }">
           <TreeItem :node="node" @expand="expand(node)" />
         </template>
@@ -26,6 +26,15 @@ export default {
   methods: {
     expand(node) {
       this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded });
+    },
+    handleDrop(dragged, { node, placement }) {
+      console.log(node)
+      this.$store.commit("drag", {
+        dragged,
+        target: node,
+        placement,
+        rundown: "b1jj8s8zq7",
+      });
     },
   },
   computed: {
