@@ -1,8 +1,8 @@
 <template>
   <div>
-    <SlTree v-model="tree_data">
+    <SlTree v-model="tree_data" ref="tree">
       <template slot="title" slot-scope="{ node }">
-          <TreeItem />
+          <TreeItem :node="node" @expand="expand(node)"/>
       </template>
       <template slot="toggle"><div></div></template>
     </SlTree>
@@ -18,6 +18,11 @@ export default {
   components: {
     SlTree,
     TreeItem
+  },
+  methods: {
+    expand(node) {
+      this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded})
+    }
   },
   data: () => ({
     tree_data: [

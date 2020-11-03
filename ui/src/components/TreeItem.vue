@@ -1,14 +1,20 @@
 <template>
-  <v-list-item :key="node.title" link>
+  <v-list-item link>
+    <TreeSpacer :level="node.level" :expanded="node.isExpanded" :folder="!node.isLeaf" @expand="expand"/>
     {{ node.title }}
   </v-list-item>
 </template>
 
 <script>
+import TreeSpacer from "./TreeSpacer"
+
 export default {
   name: "TreeItem",
-  components: {},
-  data: () => ({}),
+  components: { TreeSpacer },
+  methods: {
+    expand() { this.$emit("expand") }
+  },
+  props: ["node"],
 };
 </script>
 
