@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { transformStateToDisplayTree, getPathFromState } from "common/tree";
+
 import SlTree from "sl-vue-tree";
 import TreeItem from "./TreeItem";
 
@@ -26,27 +28,24 @@ export default {
       this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded });
     },
   },
-  data: () => ({
-    tree_data: [
-      { title: "Test 1", isLeaf: true },
-      { title: "Test 2", isLeaf: true },
-      {
-        title: "Folder",
-        children: [
-          { title: "Test 3", isLeaf: true },
-          { title: "Test 4", isLeaf: true },
-          { title: "Test 5", isLeaf: true },
-        ],
+  computed: {
+    tree_data: {
+      get() {
+        // Transform the vuex state tree into correct tree format for rundown display
+        const state = this.$store.state;
+        const rundown = getPathFromState(state, ["rundowns", "b1jj8s8zq7"]);
+
+        if (rundown) {
+          // recursively go through the tree to display all items & groups
+          const test = transformStateToDisplayTree(state, rundown.tree, "");
+          console.log(test);
+          return test;
+        }
+        return [];
       },
-      { title: "Test 3", isLeaf: true },
-      { title: "Test 4", isLeaf: true },
-      { title: "Test 5", isLeaf: true },
-      { title: "Test 6", isLeaf: true },
-      { title: "Test 7", isLeaf: true },
-      { title: "Test 8", isLeaf: true },
-      { title: "Test 9", isLeaf: true },
-    ],
-  }),
+      set() {},
+    },
+  },
 };
 </script>
 
