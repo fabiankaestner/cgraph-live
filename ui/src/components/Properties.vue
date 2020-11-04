@@ -62,15 +62,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-window {
   flex-grow: 1;
 }
 .v-tabs {
   flex: 0 0 auto !important;
-}
-.v-icon {
-  padding-left: 14px !important;
 }
 .v-btn {
   margin-top: -28px;

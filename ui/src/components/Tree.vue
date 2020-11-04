@@ -57,7 +57,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sl-vue-tree-cursor {
   height: 1px;
   background-color: blue;
