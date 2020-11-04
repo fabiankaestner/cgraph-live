@@ -2,11 +2,11 @@
   <div>
     <v-list dense nav>
       <SlTree
-        v-model="tree"
+        v-model="tree_data"
         ref="tree"
         @drop="handleDrop"
-        @dblclick="handleDblClick"
-        @click="handleClick"
+        @nodedblclick="handleDblClick"
+        @nodeclick="handleClick"
       >
         <template slot="title" slot-scope="{ node }">
           <TreeItem :node="node" @expand="expand(node)" />
@@ -28,6 +28,14 @@ export default {
     TreeItem,
   },
   props: ["tree"],
+  computed: {
+    tree_data: {
+      get() {
+        return this.$props.tree
+      },
+      set() {}
+    }
+  },
   methods: {
     expand(node) {
       this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded });
@@ -43,7 +51,7 @@ export default {
       this.$emit("dblclick", node);
     },
     handleClick(node) {
-      this.$emit("dblclick", node);
+      this.$emit("click", node);
     },
   },
 };

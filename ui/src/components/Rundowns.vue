@@ -6,24 +6,37 @@
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-list dense nav>
-      <v-list-item v-for="item in items" :key="item" link>
-        <v-list-item-content>
-          <v-list-item-title v-text="item"></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
+    <Tree :tree="tree" @dblclick="handleDblClick"/>
   </div>
 </template>
 
 <script>
+import Tree from "./Tree";
+
 export default {
+  components: {
+    Tree,
+  },
   computed: {
-    items() {
-      return ["Test", "Rundown"];
+    tree() {
+      const data = [];
+      const rundowns = this.$store.state.rundowns;
+      for (let rundown in rundowns) {
+        data.push({
+          title: rundowns[rundown].name,
+          isLeaf: true,
+          isSelectable: false,
+          data: { address: `rundown/${rundown}` },
+        });
+      }
+      return data;
     },
   },
   methods: {
+    handleDblClick(node) {
+      console.log("here");
+      this.$store.commit("local/select", { address: node.data.address })
+    }
   },
 };
 </script>

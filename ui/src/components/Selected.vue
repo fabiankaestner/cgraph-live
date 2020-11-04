@@ -7,25 +7,45 @@
       slider-color="primary"
       fixed-tabs
     >
-      <v-tab>Rundown</v-tab>
+      <v-tab v-for="t in tabs" :key="t">
+        <v-icon @click="deselect(t)">mdi-close</v-icon>
+        {{ t }}
+      </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <v-tab-item key="Rundown">
-        <Rundown />
+      <v-tab-item v-for="t in tabs" :key="t">
+        <div>
+          {{ t }}
+        </div>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
-import Rundown from "./Rundown"
-
 export default {
   name: "Selected",
-  components: { Rundown },
-  data: () => ({
-    tab: null,
-  }),
+  components: {},
+  computed: {
+    tabs() {
+      return this.$store.state.local.selected;
+    },
+    tab: {
+      get() {
+        return this.$store.state.local.currentlySelectedIdx;
+      },
+      set(newValue) {
+        this.$store.commit("local/select_tab", {
+          address: this.$store.state.local.selected[newValue],
+        });
+      },
+    },
+  },
+  methods: {
+    deselect(address) {
+      this.$store.commit("local/deselect", { address })
+    }
+  }
 };
 </script>
 
