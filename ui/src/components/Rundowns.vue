@@ -6,7 +6,7 @@
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>
-    <Tree :tree="tree" @dblclick="handleDblClick"/>
+    <Tree :tree="tree" @dblclick="handleDblClick" @click="handleClick"/>
   </div>
 </template>
 
@@ -34,8 +34,10 @@ export default {
   },
   methods: {
     handleDblClick(node) {
-      console.log("here");
       this.$store.commit("local/select", { address: node.data.address })
+    },
+    handleClick(node) {
+      this.$store.commit("local/select_properties", { address: node.data.address })
     }
   },
 };

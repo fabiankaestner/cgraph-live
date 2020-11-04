@@ -11,7 +11,11 @@
           <Selected />
         </v-container>
       </v-col>
-      <v-col cols="3" class="d-flex"></v-col>
+      <v-col cols="3" class="d-flex">
+        <v-container class="d-flex">
+          <Properties />
+        </v-container>
+      </v-col>
       <v-col cols="3" class="d-flex"></v-col>
     </v-row>
   </v-app>
@@ -24,8 +28,9 @@
 </style>
 
 <script>
-import Sidebar from "./components/Sidebar";
-import Selected from "./components/Selected";
+import Sidebar from "./components/Sidebar"
+import Selected from "./components/Selected"
+import Properties from "./components/Properties"
 
 export default {
   name: "App",
@@ -33,6 +38,7 @@ export default {
   components: {
     Sidebar,
     Selected,
+    Properties
   },
 
   data: () => ({}),
