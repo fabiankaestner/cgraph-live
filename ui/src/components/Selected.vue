@@ -5,7 +5,6 @@
       color="primary"
       dark
       slider-color="primary"
-      fixed-tabs
     >
       <v-tab v-for="t in tabs" :key="t">
         <v-icon @click="deselect(t)">mdi-close</v-icon>
