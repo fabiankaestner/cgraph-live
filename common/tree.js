@@ -88,7 +88,7 @@ export function getStrAddressFromState(state, str) {
     return getPathFromState(state, path)
 }
 
-export function drag(state, { rundown, dragged, target, placement }) {
+export function drop(state, { rundown, dragged, target, placement }) {
 
     // move a node in the rundown tree
 

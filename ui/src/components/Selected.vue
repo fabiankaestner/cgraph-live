@@ -1,37 +1,48 @@
 <template>
   <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
-    <v-tabs
-      v-model="tab"
-      color="primary"
-      dark
-      slider-color="primary"
-    >
-      <v-tab v-for="t in tabs" :key="t">
-        <v-icon @click="deselect(t)">mdi-close</v-icon>
-        {{ t }}
+    <v-tabs v-model="tab" color="primary" dark slider-color="primary">
+      <v-tab v-for="t in tabs" :key="t.address">
+        <v-icon @click="deselect(t.address)">mdi-close</v-icon>
+        {{ t.name }}
       </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <v-tab-item v-for="t in tabs" :key="t">
-        <div>
-          {{ t }}
-        </div>
+      <v-tab-item v-for="t in tabs" :key="t.address">
+        <component :is="t.component" :address="t.id"></component>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
 </template>
 
 <script>
+import { getStrAddressFromState, addressFromString } from "common/tree";
+import Rundown from "./Rundown";
+
 export default {
   name: "Selected",
   components: {},
   computed: {
     tabs() {
-      return this.$store.state.local.selected;
+      const tabs = [];
+      for (let address of this.$store.state.local.selected) {
+        const tab = getStrAddressFromState(this.$store.state, address);
+        const { type, id } = addressFromString(address);
+        let component = "";
+        if (type === "rundown") {
+          component = Rundown;
+        }
+        tabs.push({
+          ...tab,
+          address,
+          id,
+          component,
+        });
+      }
+      return tabs;
     },
     tab: {
       get() {
-        return this.$store.state.local.currentlySelectedIdx;
+        return this.$store.getters["local/currentlySelectedIdx"];
       },
       set(newValue) {
         this.$store.commit("local/select_tab", {
@@ -42,9 +53,9 @@ export default {
   },
   methods: {
     deselect(address) {
-      this.$store.commit("local/deselect", { address })
-    }
-  }
+      this.$store.commit("local/deselect", { address });
+    },
+  },
 };
 </script>
 

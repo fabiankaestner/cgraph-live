@@ -21,7 +21,7 @@ export default {
             }
         }
     },
-    computed: {
+    getters: {
         currentlySelectedIdx(state) {
             return state.selected.indexOf(state.currentlySelected)
         }

@@ -5,7 +5,7 @@ import playbacks from "./playbacks"
 import local from "./local"
 import rundowns from "./rundowns"
 import groups from "./groups"
-import { drag } from "../tree"
+import { drop } from "../tree"
 
 Vue.use(Vuex)
 
@@ -18,7 +18,7 @@ export default function createStore(plugins) {
             rundowns
         },
         mutations: {
-            drag: drag
+            drop: drop
         },
         plugins
     })
