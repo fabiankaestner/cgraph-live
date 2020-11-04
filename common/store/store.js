@@ -1,10 +1,12 @@
 import Vue from "vue"
 import Vuex from "vuex"
 
-import playbacks from "./playbacks"
+import playback from "./playback"
+import instance from "./instance"
+import node from "./node"
 import local from "./local"
-import rundowns from "./rundowns"
-import groups from "./groups"
+import rundown from "./rundown"
+import group from "./group"
 import { drop } from "../tree"
 
 Vue.use(Vuex)
@@ -12,10 +14,12 @@ Vue.use(Vuex)
 export default function createStore(plugins) {
     return new Vuex.Store({
         modules: {
-            playbacks,
+            instance,
+            node,
+            playback,
             local,
-            groups,
-            rundowns
+            group,
+            rundown
         },
         mutations: {
             drop: drop
