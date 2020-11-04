@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-list dense nav>
-      <SlTree v-model="tree_data" ref="tree" @drop="handleDrop">
+      <SlTree v-model="tree" ref="tree" @drop="handleDrop">
         <template slot="title" slot-scope="{ node }">
           <TreeItem :node="node" @expand="expand(node)" />
         </template>
@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import { transformStateToDisplayTree, getPathFromState } from "common/tree";
-
 import SlTree from "sl-vue-tree";
 import TreeItem from "./TreeItem";
 
@@ -23,32 +21,17 @@ export default {
     SlTree,
     TreeItem,
   },
+  props: [ "tree" ],
   methods: {
     expand(node) {
       this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded });
     },
     handleDrop(dragged, { node, placement }) {
-      this.$store.commit("drag", {
+      this.$emit("drop", {
         dragged,
         target: node,
-        placement,
-        rundown: "b1jj8s8zq7",
-      });
-    },
-  },
-  computed: {
-    tree_data: {
-      get() {
-        // Transform the vuex state tree into correct tree format for rundown display
-        const state = this.$store.state;
-        const rundown = getPathFromState(state, ["rundowns", "b1jj8s8zq7"]);
-
-        if (rundown) {
-          return transformStateToDisplayTree(state, rundown.tree, "");
-        }
-        return [];
-      },
-      set() {},
+        placement
+      })
     },
   },
 };
@@ -57,6 +40,6 @@ export default {
 <style>
 .sl-vue-tree-cursor {
   height: 1px;
-  background-color: red;
+  background-color: blue;
 }
 </style>
