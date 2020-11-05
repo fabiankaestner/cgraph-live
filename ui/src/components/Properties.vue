@@ -1,6 +1,6 @@
 <template>
   <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
-    <v-card-title class="headline">{{ item._props.name.value }}</v-card-title>
+    <v-card-title class="headline">{{ name }}</v-card-title>
     <v-card-subtitle>{{ address }}</v-card-subtitle>
     <v-divider></v-divider>
     <v-container>
