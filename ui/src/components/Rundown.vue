@@ -8,7 +8,8 @@
 <script>
 import Tree from "./Tree";
 
-import { transformStateToDisplayTree, getPathFromState } from "common/tree";
+import { transformStateToDisplayTree } from "common/helpers/display_tree"
+import { getPathFromState } from "common/helpers/getters";
 
 export default {
   name: "Rundown",
@@ -26,7 +27,7 @@ export default {
     tree_data() {
       // Transform the vuex state tree into correct tree format for rundown display
       const state = this.$store.state;
-      const rundown = getPathFromState(state, ["rundowns", this.$props.address]);
+      const rundown = getPathFromState(state, ["rundown", this.$props.address]);
 
       if (rundown) {
         return transformStateToDisplayTree(state, rundown.tree, "");

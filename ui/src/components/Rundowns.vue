@@ -20,13 +20,13 @@ export default {
   computed: {
     tree() {
       const data = [];
-      const rundowns = this.$store.state.rundowns;
+      const rundowns = this.$store.state.rundown;
       for (let rundown in rundowns) {
         data.push({
-          title: rundowns[rundown].name,
+          title: rundowns[rundown]._props.name.value,
           isLeaf: true,
           isSelectable: false,
-          data: { address: `rundown/${rundown}` },
+          data: { address: `/rundown/${rundown}` },
         });
       }
       return data;

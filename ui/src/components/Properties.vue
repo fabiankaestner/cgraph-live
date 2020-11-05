@@ -1,19 +1,18 @@
 <template>
   <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
-    <v-card-title class="headline">{{ item.name }}</v-card-title>
+    <v-card-title class="headline">{{ item._props.name.value }}</v-card-title>
     <v-card-subtitle>{{ address }}</v-card-subtitle>
     <v-divider></v-divider>
     <v-container>
       <v-list>
         <v-subheader>Node Properties</v-subheader>
-        <StringProperty  />
       </v-list>
     </v-container>
   </v-card>
 </template>
 
 <script>
-import { getStrAddressFromState } from "common/tree";
+import { getStrAddressFromState } from "common/helpers/getters";
 
 export default {
   name: "Properties",
@@ -25,7 +24,13 @@ export default {
       if (this.address) {
         return getStrAddressFromState(this.$store.state, this.address);
       }
-      return {};
+      return undefined;
+    },
+    name() {
+      if (this.item) {
+        return this.item._props.name.value;
+      }
+      return "";
     },
   },
 };

@@ -3,7 +3,7 @@
     <v-tabs v-model="tab" color="primary" dark slider-color="primary">
       <v-tab v-for="t in tabs" :key="t.address">
         <v-icon @click="deselect(t.address)">mdi-close</v-icon>
-        {{ t.name }}
+        {{ t._props.name.value }}
       </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import { getStrAddressFromState, addressFromString } from "common/tree";
+import { parseStringAddress } from "common/helpers/address"
+import { getStrAddressFromState } from "common/helpers/getters"
 import Rundown from "./Rundown";
 
 export default {
@@ -26,7 +27,7 @@ export default {
       const tabs = [];
       for (let address of this.$store.state.local.selected) {
         const tab = getStrAddressFromState(this.$store.state, address);
-        const { type, id } = addressFromString(address);
+        const { type } = parseStringAddress(address);
         let component = "";
         if (type === "rundown") {
           component = Rundown;
@@ -34,8 +35,7 @@ export default {
         tabs.push({
           ...tab,
           address,
-          id,
-          component,
+          component
         });
       }
       return tabs;

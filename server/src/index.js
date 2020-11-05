@@ -79,7 +79,7 @@ const initial = {
                 }
             },
             tree: [
-                "/node/35scj6v0qm"
+                "/node/1234j6v0qm"
             ]
         }
     },
@@ -98,7 +98,8 @@ const initial = {
                 "/group/5r2g4v8vv1"
             ]
         }
-    }
+    },
+    local: { currentlySelected: "", selected: [], properties: "" }
 }
 
 async function initStore() {

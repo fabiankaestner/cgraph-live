@@ -3,7 +3,7 @@
     <v-list dense nav>
       <v-list-item v-for="item in items" :key="item.id" link>
         <v-list-item-content>
-          <v-list-item-title v-text="item.name"></v-list-item-title>
+          <v-list-item-title v-text="item._props.name.value"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -17,7 +17,7 @@
 export default {
   computed: {
     items() {
-      return this.$store.state.playbacks;
+      return this.$store.state.playback;
     },
   },
   methods: {
