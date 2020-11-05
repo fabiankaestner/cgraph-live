@@ -1,14 +1,11 @@
 <template>
-  <Tree 
-    @drop="handleDrop"
-    :tree="tree_data"
-  />
+  <Tree @drop="handleDrop" @click="handleClick" :tree="tree_data" />
 </template>
 
 <script>
 import Tree from "./Tree";
 
-import { transformStateToDisplayTree } from "common/helpers/display_tree"
+import { transformStateToDisplayTree } from "common/helpers/display_tree";
 import { getPathFromState } from "common/helpers/getters";
 
 export default {
@@ -19,9 +16,14 @@ export default {
   },
   methods: {
     handleDrop(payload) {
-      payload.rundown = this.$props.address
-      this.$store.commit("drop", payload)
-    }
+      payload.rundown = this.$props.address;
+      this.$store.commit("drop", payload);
+    },
+    handleClick(node) {
+      this.$store.commit("local/select_properties", {
+        address: node.data.address,
+      });
+    },
   },
   computed: {
     tree_data() {
