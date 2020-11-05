@@ -29,7 +29,9 @@ export function webSocketSyncPlugin(connection) {
                 type,
                 payload
             }
-            connection.send(JSON.stringify(msg))
+            if (!payload.src) {
+                connection.send(JSON.stringify(msg))
+            }
         })
     }
 }
