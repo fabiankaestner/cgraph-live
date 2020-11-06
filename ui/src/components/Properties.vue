@@ -48,43 +48,61 @@ export default {
   },
   methods: {
     handleUpdate({ own, name, type, value, autoUpdate, link }) {
-      let _updatedProps = own ? this.updatedOwnProps : this.updatedProps;
-      _updatedProps[name] = {
+      let updatedProps = own ? this.updatedOwnProps : this.updatedProps;
+      this.$set(updatedProps, name, {
         type,
         value,
         autoUpdate,
         link,
-      };
+      });
       this.updated = true;
     },
     evalProp(name, own) {
-      console.log(this.item);
-      let prop = own ? this.item._props[name] : this.item.props[name];
-      return {
-        ...prop,
-        name,
-        own,
-      };
+      let updatedProps = own ? this.updatedOwnProps : this.updatedProps;
+      let props = own ? this.item._props : this.item.props;
+
+      if (updatedProps[name] === undefined) {
+        this.$set(updatedProps, name, false);
+      }
+
+      let prop = { name, own };
+
+      if (updatedProps[name]) {
+        Object.assign(prop, updatedProps[name]);
+      } else {
+        Object.assign(prop, props[name]);
+      }
+
+      return prop;
     },
     commit() {
+      // loop through all updatedProps
       for (let name in this.updatedOwnProps) {
-        this.$store.commit(`${this.type}/update_property`, {
-          own: true,
-          name,
-          id: this.id,
-          update: this.updatedOwnProps[name],
-        });
+        // check if really updated, or just default value false
+        if (this.updatedOwnProps[name]) {
+          // update the property in the vuex store
+          this.$store.commit(`${this.type}/update_property`, {
+            own: true,
+            name,
+            id: this.id,
+            update: this.updatedOwnProps[name],
+          });
+          // clear the update value
+          this.updatedOwnProps[name] = false;
+        }
       }
+      // repeat for inherited properties
       for (let name in this.updatedProps) {
-        this.$store.commit(`${this.type}/update_property`, {
-          own: false,
-          name,
-          id: this.id,
-          update: this.updatedOwnProps[name],
-        });
+        if (this.updatedProps[name]) {
+          this.$store.commit(`${this.type}/update_property`, {
+            own: false,
+            name,
+            id: this.id,
+            update: this.updatedProps[name],
+          });
+          this.updatedProps[name] = false;
+        }
       }
-      this.updatedOwnProps = {};
-      this.updatedProps;
       this.updated = false;
     },
   },
