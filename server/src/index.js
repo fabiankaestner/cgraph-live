@@ -10,6 +10,7 @@ const initial = {
             props: {
                 name: {
                     type: "string",
+                    name: "name",
                     value: "Debug Playback",
                     autoUpdate: false,
                     link: false,
@@ -17,6 +18,7 @@ const initial = {
                 },
                 data: {
                     type: "string",
+                    name: "data",
                     value: null,
                     autoUpdate: false,
                     link: false
@@ -39,6 +41,7 @@ const initial = {
             props: {
                 name: {
                     type: "string",
+                    name: "name",
                     value: "Debug Playback Instance 1",
                     autoUpdate: false,
                     link: false,
@@ -54,6 +57,7 @@ const initial = {
             props: {
                 name: {
                     type: "string",
+                    name: "name",
                     value: "Debug Playback Node",
                     autoUpdate: false,
                     link: false,
@@ -61,6 +65,7 @@ const initial = {
                 },
                 ref: {
                     type: "reference",
+                    name: "ref",
                     value: "/instance/35scj6v0qm",
                     autoUpdate: false,
                     link: false,
@@ -75,6 +80,7 @@ const initial = {
             props: {
                 name: {
                     type: "string",
+                    name: "name",
                     value: "Group 1",
                     autoUpdate: false,
                     link: false,
@@ -92,6 +98,7 @@ const initial = {
             props: {
                 name: {
                     type: "string",
+                    name: "name",
                     value: "Rundown 1",
                     autoUpdate: false,
                     link: false,
