@@ -8,23 +8,52 @@ export default {
         add_with_id(state, { id, name }) {
             Vue.set(state, id, {
                 id,
-                _props: {
+                props: {
                     name: {
                         type: "string",
                         value: name,
                         autoUpdate: false,
-                        link: false
+                        link: false,
+                        own: true
                     }
                 },
                 tree: []
             })
         },
-        update_property(state, { update, name, id, own } = {}) {
-            if (own) {
-                state[id]._props[name] = update
-            } else {
-                state[id].props[name] = update
+        update_property(state, { update, name, id } = {}) {
+            state[id].props[name] = update
+        }
+    },
+    getters: {
+        getPropertyNames: (state) => (id, excludeOwn) => {
+
+            // return array of all property names
+
+            const rundown = state[id]
+            if (!rundown) {
+                return undefined
             }
+
+            const props = [];
+
+            if (!excludeOwn) {
+                for (let name in rundown.props) {
+                    props.push(name)
+                }
+            }
+            console.log(props)
+            return props
+        },
+        evaluate: (state) => (id, property) => {
+
+            // evaluate a property (rundowns don't inherit, so simply return the value)
+
+            const rundown = state[id]
+            if (!rundown || !rundown.props[property]) {
+                return undefined
+            }
+
+            return rundown.props[property]
         }
     },
     actions: {

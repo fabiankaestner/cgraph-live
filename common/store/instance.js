@@ -4,11 +4,13 @@ export default {
     namespaced: true,
     state: () => ({}),
     mutations: {
-
+        update_property(state, { update, name, id } = {}) {
+            state[id].props[name] = update
+        }
     },
     getters: {
         getPropertyNames: (state, getters, rootState, rootGetters) => (id, excludeOwn) => {
-            
+
             // return array of all property names, optionally excluding own properties
 
             const instance = state[id]

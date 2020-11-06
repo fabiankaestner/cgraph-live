@@ -5,12 +5,8 @@ export default {
         add(state, { name }) {
             state.push(name)
         },
-        update_property(state, { update, name, id, own } = {}) {
-            if (own) {
-                state[id]._props[name] = update
-            } else {
-                state[id].props[name] = update
-            }
+        update_property(state, { update, name, id } = {}) {
+            state[id].props[name] = update
         }
     },
     getters: {
