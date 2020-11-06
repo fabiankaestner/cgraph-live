@@ -15,7 +15,7 @@ export default {
                 return undefined
             }
 
-            const typeAddress = parseStringAddress(node.props.ref)
+            const typeAddress = parseStringAddress(node.props.ref.value)
             const ownProps = [];
             const props = rootGetters[`${typeAddress.type}/getPropertyNames`](typeAddress.id, true)
 

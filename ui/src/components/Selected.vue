@@ -3,7 +3,7 @@
     <v-tabs v-model="tab" color="primary" dark slider-color="primary">
       <v-tab v-for="t in tabs" :key="t.address">
         <v-icon @click="deselect(t.address)">mdi-close</v-icon>
-        {{ t._props.name.value }}
+        {{ t.props.name.value }}
       </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">

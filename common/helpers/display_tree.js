@@ -11,7 +11,7 @@ export function transformStateToDisplayTree(state, tree, parentGroup) {
             // we have a leaf node
 
             display_tree.push({
-                title: state.node[id]._props.name.value,
+                title: state.node[id].props.name.value,
                 isLeaf: true,
                 data: { address: node_addr }
             });
@@ -20,7 +20,7 @@ export function transformStateToDisplayTree(state, tree, parentGroup) {
             // we have a group that is different from the parent group => recursively evaluate.
             const group = state.group[id];
             display_tree.push({
-                title: group._props.name.value,
+                title: group.props.name.value,
                 children: transformStateToDisplayTree(state, group.tree, id),
                 data: { address: node_addr }
             });

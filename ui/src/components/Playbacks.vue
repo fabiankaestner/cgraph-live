@@ -26,7 +26,7 @@ export default {
       const playbacks = this.$store.state.playback;
       for (let playback in playbacks) {
         data.push({
-          title: playbacks[playback]._props.name.value,
+          title: this.$store.getters["playback/evaluate"](playback, "name").value,
           isLeaf: true,
           isSelectable: false,
           data: { address: `/playback/${playback}` },

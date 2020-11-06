@@ -23,7 +23,7 @@ export default {
       const rundowns = this.$store.state.rundown;
       for (let rundown in rundowns) {
         data.push({
-          title: rundowns[rundown]._props.name.value,
+          title: rundowns[rundown].props.name.value,
           isLeaf: true,
           isSelectable: false,
           data: { address: `/rundown/${rundown}` },

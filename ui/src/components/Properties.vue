@@ -5,18 +5,10 @@
     <v-divider></v-divider>
     <v-container>
       <v-list>
-        <v-subheader>Node Properties</v-subheader>
         <Property
-          v-for="(prop, name) in item._props"
+          v-for="name in props"
           :key="name"
-          :value="evalProp(name, true)"
-          @input="handleUpdate"
-        />
-        <v-subheader>Properties</v-subheader>
-        <Property
-          v-for="(prop, name) in item.props"
-          :key="name"
-          :value="evalProp(name, false)"
+          :value="evalProp(name)"
           @input="handleUpdate"
         />
       </v-list>
@@ -36,7 +28,6 @@
 
 <script>
 import { parseStringAddress } from "common/helpers/address";
-import { getStrAddressFromState } from "common/helpers/getters";
 
 import Property from "./Property.vue";
 
@@ -44,106 +35,37 @@ export default {
   name: "Properties",
   components: { Property },
   data() {
-    return { updated: false, updatedOwnProps: {}, updatedProps: {} };
+    return { updated: false, updatedProps: {} };
   },
   methods: {
     handleUpdate({ own, name, type, value, autoUpdate, link }) {
-      let updatedProps = own ? this.updatedOwnProps : this.updatedProps;
-      this.$set(updatedProps, name, {
+      this.$set(this.updatedProps, name, {
         type,
         value,
         autoUpdate,
         link,
+        own,
       });
       this.updated = true;
     },
-    evalProp(name, own) {
-      console.log("Evaluating ", name);
-      let updatedProps = own ? this.updatedOwnProps : this.updatedProps;
-      let props = own ? this.item._props : this.item.props;
-
-      if (updatedProps[name] === undefined) {
-        this.$set(updatedProps, name, false);
+    evalProp(name) {
+      if (this.updatedProps[name] === undefined) {
+        this.$set(this.updatedProps, name, false);
       }
-
-      let prop = { name, own };
-
-      if (updatedProps[name]) {
-        // updated values take precedence
-        Object.assign(prop, updatedProps[name]);
-      } else {
-        Object.assign(prop, props[name]);
-      }
-      console.log(prop);
-      if (prop.value === null) {
-        console.log("Inheriting");
-        // the value is empty, inherit
-        if (this.type === "node") {
-          // nodes inherit from their ref attribute
-          const instance = getStrAddressFromState(
-            this.$store.state,
-            this.item._props.ref.value
-          );
-          if (
-            (own ? instance._props[name].value : instance.props[name].value) ===
-            null
-          ) {
-            const playback = getStrAddressFromState(
-              this.$store.state,
-              instance.type
-            );
-            Object.assign(
-              prop,
-              own ? playback._props[name] : playback.props[name]
-            );
-          } else {
-            Object.assign(
-              prop,
-              own ? instance._props[name] : instance.props[name]
-            );
-          }
-          prop.inherited = true;
-        } else if (this.type === "instance") {
-          // instances inherit from their type
-          const inherited = getStrAddressFromState(
-            this.$store.state,
-            this.item.type
-          );
-          Object.assign(
-            prop,
-            own ? inherited._props[name] : inherited.props[name]
-          );
-          prop.inherited = true;
-        }
-      }
-
-      return prop;
+      return this.$store.getters[`${this.type}/evaluate`](this.id, name);
     },
     commit() {
       // loop through all updatedProps
-      for (let name in this.updatedOwnProps) {
+      for (let name in this.updatedProps) {
         // check if really updated, or just default value false
-        if (this.updatedOwnProps[name]) {
+        if (this.updatedProps[name]) {
           // update the property in the vuex store
           this.$store.commit(`${this.type}/update_property`, {
-            own: true,
-            name,
-            id: this.id,
-            update: this.updatedOwnProps[name],
-          });
-          // clear the update value
-          this.updatedOwnProps[name] = false;
-        }
-      }
-      // repeat for inherited properties
-      for (let name in this.updatedProps) {
-        if (this.updatedProps[name]) {
-          this.$store.commit(`${this.type}/update_property`, {
-            own: false,
             name,
             id: this.id,
             update: this.updatedProps[name],
           });
+          // clear the update value
           this.updatedProps[name] = false;
         }
       }
@@ -152,25 +74,23 @@ export default {
   },
   computed: {
     address() {
-      return this.$store.state.local.properties;
+      return this.$store.state.local.properties || "";
     },
     type() {
-      return parseStringAddress(this.address).type;
+      return (parseStringAddress(this.address) || {}).type;
     },
     id() {
-      return parseStringAddress(this.address).id;
+      return (parseStringAddress(this.address) || {}).id;
     },
-    item() {
-      if (this.address) {
-        return getStrAddressFromState(this.$store.state, this.address);
-      }
-      return {};
+    props() {
+      return this.type && this.id
+        ? this.$store.getters[`${this.type}/getPropertyNames`](this.id)
+        : [];
     },
     name() {
-      if (this.item._props) {
-        return this.item._props.name.value;
-      }
-      return "";
+      return this.type && this.id
+        ? this.$store.getters[`${this.type}/evaluate`](this.id, "name").value
+        : "";
     },
   },
 };

@@ -26,7 +26,7 @@ export default {
                 const prop = pb.props[name]
                 if (prop.own && !excludeOwn) {
                     ownProps.push(name)
-                } else {
+                } else if (!prop.own) {
                     props.push(name)
                 }
             }

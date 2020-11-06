@@ -41,7 +41,6 @@ export default {
                     props.push(name)
                 }
             }
-            console.log(props)
             return props
         },
         evaluate: (state) => (id, property) => {
