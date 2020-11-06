@@ -7,17 +7,17 @@ const initial = {
     playback: {
         debug: {
             id: "debug",
-            _props: {
+            props: {
                 name: {
                     type: "string",
                     value: "Debug Playback",
                     autoUpdate: false,
-                    link: false
-                }
-            },
-            props: {
+                    link: false,
+                    own: true
+                },
                 data: {
                     type: "string",
+                    value: null,
                     autoUpdate: false,
                     link: false
                 }
@@ -36,33 +36,35 @@ const initial = {
         "35scj6v0qm": {
             id: "35scj6v0qm",
             type: "/playback/debug",
-            _props: {
+            props: {
                 name: {
                     type: "string",
                     value: "Debug Playback Instance 1",
                     autoUpdate: false,
-                    link: false
+                    link: false,
+                    own: true
                 }
-            },
-            props: {}
+            }
         }
     },
     node: {
         "1234j6v0qm": {
             id: "1234j6v0qm",
             type: "/playback/debug",
-            _props: {
+            props: {
                 name: {
                     type: "string",
                     value: "Debug Playback Node",
                     autoUpdate: false,
-                    link: false
+                    link: false,
+                    own: true
                 },
                 ref: {
                     type: "reference",
                     value: "/instance/35scj6v0qm",
                     autoUpdate: false,
-                    link: false
+                    link: false,
+                    own: true
                 }
             }
         }
@@ -70,12 +72,13 @@ const initial = {
     group: {
         "5r2g4v8vv1": {
             id: "5r2g4v8vv1",
-            _props: {
+            props: {
                 name: {
                     type: "string",
                     value: "Group 1",
                     autoUpdate: false,
-                    link: false
+                    link: false,
+                    own: true
                 }
             },
             tree: [
@@ -86,12 +89,13 @@ const initial = {
     rundown: {
         "b1jj8s8zq7": {
             id: "b1jj8s8zq7",
-            _props: {
+            props: {
                 name: {
                     type: "string",
                     value: "Rundown 1",
                     autoUpdate: false,
-                    link: false
+                    link: false,
+                    own: true
                 }
             },
             tree: [
