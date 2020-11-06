@@ -1,26 +1,39 @@
 <template>
-  <div>
-    <v-list dense nav>
-      <v-list-item v-for="item in items" :key="item.id" link>
-        <v-list-item-content>
-          <v-list-item-title v-text="item._props.name.value"></v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-  </div>
+  <Tree :tree="tree" @click="handleClick" />
 </template>
 
 <style scoped>
 </style>
 
 <script>
+import Tree from "./Tree"
+
 export default {
-  computed: {
-    items() {
-      return this.$store.state.playback;
-    },
+  name: "Playbacks",
+  components: {
+    Tree
   },
   methods: {
+    handleClick(node) {
+      this.$store.commit("local/select_properties", {
+        address: node.data.address,
+      });
+    },
+  },
+  computed: {
+    tree() {
+      const data = [];
+      const playbacks = this.$store.state.playback;
+      for (let playback in playbacks) {
+        data.push({
+          title: playbacks[playback]._props.name.value,
+          isLeaf: true,
+          isSelectable: false,
+          data: { address: `/playback/${playback}` },
+        });
+      }
+      return data;
+    },
   },
 };
 </script>
