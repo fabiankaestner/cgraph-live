@@ -18,6 +18,13 @@ export default {
                 },
                 tree: []
             })
+        },
+        update_property(state, { update, name, id, own } = {}) {
+            if (own) {
+                state[id]._props[name] = update
+            } else {
+                state[id].props[name] = update
+            }
         }
     },
     actions: {
