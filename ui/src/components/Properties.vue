@@ -58,6 +58,7 @@ export default {
       this.updated = true;
     },
     evalProp(name, own) {
+      console.log("Evaluating ", name);
       let updatedProps = own ? this.updatedOwnProps : this.updatedProps;
       let props = own ? this.item._props : this.item.props;
 
@@ -68,9 +69,52 @@ export default {
       let prop = { name, own };
 
       if (updatedProps[name]) {
+        // updated values take precedence
         Object.assign(prop, updatedProps[name]);
       } else {
         Object.assign(prop, props[name]);
+      }
+      console.log(prop);
+      if (prop.value === null) {
+        console.log("Inheriting");
+        // the value is empty, inherit
+        if (this.type === "node") {
+          // nodes inherit from their ref attribute
+          const instance = getStrAddressFromState(
+            this.$store.state,
+            this.item._props.ref.value
+          );
+          if (
+            (own ? instance._props[name].value : instance.props[name].value) ===
+            null
+          ) {
+            const playback = getStrAddressFromState(
+              this.$store.state,
+              instance.type
+            );
+            Object.assign(
+              prop,
+              own ? playback._props[name] : playback.props[name]
+            );
+          } else {
+            Object.assign(
+              prop,
+              own ? instance._props[name] : instance.props[name]
+            );
+          }
+          prop.inherited = true;
+        } else if (this.type === "instance") {
+          // instances inherit from their type
+          const inherited = getStrAddressFromState(
+            this.$store.state,
+            this.item.type
+          );
+          Object.assign(
+            prop,
+            own ? inherited._props[name] : inherited.props[name]
+          );
+          prop.inherited = true;
+        }
       }
 
       return prop;

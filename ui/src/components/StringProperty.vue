@@ -2,7 +2,7 @@
   <v-list-item>
     <v-list-item-content>
       <v-flex>
-        <v-text-field :label="value.name" v-model="v" dense outlined placeholder=" ">
+        <v-text-field :label="value.name" v-model="v" dense outlined placeholder=" " :messages="value.inherited ? 'Inherited' : undefined">
         </v-text-field>
       </v-flex>
       <v-flex shrink>
