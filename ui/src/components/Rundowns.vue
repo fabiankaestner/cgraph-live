@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-toolbar dense flat>
-      <v-btn color="secondary">
-        Add
+      <v-btn color="secondary" @click="add">
         <v-icon>mdi-plus</v-icon>
+        Add
       </v-btn>
     </v-toolbar>
-    <Tree :tree="tree" @dblclick="handleDblClick" @click="handleClick"/>
+    <Tree :tree="tree" @dblclick="handleDblClick" @click="handleClick" />
   </div>
 </template>
 
@@ -34,10 +34,15 @@ export default {
   },
   methods: {
     handleDblClick(node) {
-      this.$store.commit("local/select", { address: node.data.address })
+      this.$store.commit("local/select", { address: node.data.address });
     },
     handleClick(node) {
-      this.$store.commit("local/select_properties", { address: node.data.address })
+      this.$store.commit("local/select_properties", {
+        address: node.data.address,
+      });
+    },
+    add() {
+      this.$store.dispatch("rundown/add")
     }
   },
 };
