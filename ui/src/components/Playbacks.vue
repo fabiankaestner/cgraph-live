@@ -28,7 +28,6 @@ export default {
         data.push({
           title: this.$store.getters["playback/evaluate"](playback, "name").value,
           isLeaf: true,
-          isSelectable: false,
           data: { address: `/playback/${playback}` },
         });
       }

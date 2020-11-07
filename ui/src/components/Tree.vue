@@ -7,6 +7,8 @@
         @drop="handleDrop"
         @nodedblclick="handleDblClick"
         @nodeclick="handleClick"
+        @externaldrop="external"
+        @beforedrop="beforeDrop"
       >
         <template slot="title" slot-scope="{ node }">
           <TreeItem :node="node" @expand="expand(node)" />
@@ -40,6 +42,9 @@ export default {
     expand(node) {
       this.$refs.tree.updateNode(node.path, { isExpanded: !node.isExpanded });
     },
+    beforeDrop(nodes, position, cancel) {
+      this.$emit("beforeDrop", { nodes, position, cancel })
+    },
     handleDrop(dragged, { node, placement }) {
       this.$emit("drop", {
         dragged,
@@ -53,13 +58,17 @@ export default {
     handleClick(node) {
       this.$emit("click", node);
     },
+    external(path, event) {
+      console.log(path, event)
+      this.$emit("external", { path, event })
+    }
   },
 };
 </script>
 
-<style scoped>
+<style>
 .sl-vue-tree-cursor {
-  height: 1px;
-  background-color: blue;
+  height: 3px;
+  background-color: #1976D2;
 }
 </style>
