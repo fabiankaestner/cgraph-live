@@ -41,7 +41,7 @@ const mutations = {
 };
 
 const actions = {
-    add({ commit, state }) {
+    add({ commit, state }: any) {
         const id = checkedID(id => !!state[id]);
         commit("add_with_id", {
             id,

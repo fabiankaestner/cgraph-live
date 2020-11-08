@@ -6,7 +6,8 @@ import { StringAddress } from "../store/types/address";
 export interface DropOperation {
     rundown: string;
     dragged: TreeNode[];
-    target: TreePath;
+    target: TreeNode;
+    placement: string;
 }
 
 export type TreePath = number[];
@@ -24,7 +25,10 @@ interface NodeToDelete {
     idx: number;
 }
 
-export function drop(state: State, { rundown, dragged, target, placement }) {
+export function drop(
+    state: State,
+    { rundown, dragged, target, placement }: DropOperation
+) {
     // move a node in the rundown tree
 
     const tree: StateTree = getPathFromState(state, [
@@ -75,7 +79,7 @@ export function drop(state: State, { rundown, dragged, target, placement }) {
             ptr.splice(insertIdx, 0, ...toDelete.map(({ node }) => node));
         }
 
-        const deletedAtAddress = {};
+        const deletedAtAddress: { [key: string]: number[] } = {};
 
         // delete the marked nodes
         for (let { idx, address } of toDelete) {

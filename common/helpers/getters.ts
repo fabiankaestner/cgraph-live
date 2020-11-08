@@ -12,7 +12,7 @@ export function getStrAddressFromState(state: State, str: string) {
 }
 
 export function getPathFromState(state: State, path: StatePath): any {
-    let current = state;
+    let current: any = state;
     for (let seg of path) {
         if (current[seg]) {
             current = current[seg];

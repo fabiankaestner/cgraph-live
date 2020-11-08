@@ -16,7 +16,10 @@ export interface InstanceState {
 const state: InstanceState = {};
 
 const mutations = {
-    update_property(state, { update, name, id }: PropertyUpdate) {
+    update_property(
+        state: InstanceState,
+        { update, name, id }: PropertyUpdate
+    ) {
         state[id].props[name] = update;
     }
 };
