@@ -13,6 +13,9 @@ export type TreePath = number[];
 
 export interface TreeNode {
     path: TreePath;
+    title: string;
+    address: StringAddress;
+    children?: TreeNode[];
 }
 
 interface NodeToDelete {
