@@ -19,7 +19,7 @@ import SubTree from "./SubTree";
 export default {
     props: ["container", "treeItem", "separator"],
     components: {
-        SubTree,
+        SubTree
     },
     data() {
         return {
@@ -29,13 +29,13 @@ export default {
                 { name: "Element 3" },
                 {
                     name: "Element 4",
-                    children: [{ name: "Child 1" }, { name: "Child 2" }],
+                    children: [{ name: "Child 1" }, { name: "Child 2" }]
                 },
                 { name: "Element 5" },
                 { name: "Element 6" },
-                { name: "Element 7" },
+                { name: "Element 7" }
             ],
-            cursor: { path: [], position: "" },
+            cursor: { path: [], position: "" }
         };
     },
     methods: {
@@ -52,8 +52,8 @@ export default {
         handleDragEnd() {
             console.log("end");
             this.cursor = { path: [], placement: "" };
-        },
-    },
+        }
+    }
 };
 </script>
 

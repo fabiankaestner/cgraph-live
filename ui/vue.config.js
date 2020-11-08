@@ -1,8 +1,14 @@
 module.exports = {
-  "transpileDependencies": [
-    "vuetify"
-  ],
-  configureWebpack: {
-    devtool: 'eval-source-map'
-  }
-}
+    configureWebpack: {
+        devtool: "eval-source-map"
+    },
+    css: {
+        loaderOptions: {
+            sass: {
+                data: `
+                    @import "@/scss/variables.scss";
+                `
+            }
+        }
+    }
+};

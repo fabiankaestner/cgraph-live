@@ -1,9 +1,9 @@
 <template>
-  <component :is="component" :value="value" @input="i => $emit('input', i)" />
+    <component :is="component" :value="value" @input="i => $emit('input', i)" />
 </template>
 
 <script>
-import StringProperty from "./StringProperty"
+import StringProperty from "./StringProperty";
 
 export default {
     name: "Property",
@@ -12,15 +12,13 @@ export default {
         component() {
             if (this.value) {
                 if (this.value.type === "string") {
-                    return StringProperty
+                    return StringProperty;
                 }
             }
-            return undefined
+            return undefined;
         }
     }
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

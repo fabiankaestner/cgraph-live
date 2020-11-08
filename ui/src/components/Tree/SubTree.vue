@@ -38,7 +38,7 @@ import TreeItem from "./TreeItem";
 export default {
     name: "SubTree",
     components: {
-        TreeItem,
+        TreeItem
     },
     methods: {
         isActiveCursor(idx) {
@@ -84,7 +84,7 @@ export default {
         handleCursor({ path: _path, placement }, idx) {
             console.log("hC", _path, [idx, ..._path], idx, placement);
             this.$emit("cursor", { path: [idx, ..._path], placement });
-        },
+        }
     },
     computed: {
         pathIdx() {
@@ -110,9 +110,9 @@ export default {
             const { path, placement } = this.cursor;
             const [, ...newPath] = path;
             return { path: newPath, placement };
-        },
+        }
     },
-    props: ["root", "elements", "cursor", "level"],
+    props: ["root", "elements", "cursor", "level"]
 };
 </script>
 

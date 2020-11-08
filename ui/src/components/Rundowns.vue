@@ -1,52 +1,51 @@
 <template>
-  <div>
-    <v-toolbar dense flat>
-      <v-btn color="secondary" @click="add">
-        <v-icon>mdi-plus</v-icon>
-        Add
-      </v-btn>
-    </v-toolbar>
-    <Tree :tree="tree" @dblclick="handleDblClick" @click="handleClick" />
-  </div>
+    <div>
+        <v-toolbar dense flat>
+            <v-btn color="secondary" @click="add">
+                <v-icon>mdi-plus</v-icon>
+                Add
+            </v-btn>
+        </v-toolbar>
+        <Tree :tree="tree" @dblclick="handleDblClick" @click="handleClick" />
+    </div>
 </template>
 
 <script>
 import Tree from "./Tree";
 
 export default {
-  components: {
-    Tree,
-  },
-  computed: {
-    tree() {
-      const data = [];
-      const rundowns = this.$store.state.rundown;
-      for (let rundown in rundowns) {
-        data.push({
-          title: rundowns[rundown].props.name.value,
-          isLeaf: true,
-          isSelectable: false,
-          data: { address: `/rundown/${rundown}` },
-        });
-      }
-      return data;
+    components: {
+        Tree
     },
-  },
-  methods: {
-    handleDblClick(node) {
-      this.$store.commit("local/select", { address: node.data.address });
+    computed: {
+        tree() {
+            const data = [];
+            const rundowns = this.$store.state.rundown;
+            for (let rundown in rundowns) {
+                data.push({
+                    title: rundowns[rundown].props.name.value,
+                    isLeaf: true,
+                    isSelectable: false,
+                    data: { address: `/rundown/${rundown}` }
+                });
+            }
+            return data;
+        }
     },
-    handleClick(node) {
-      this.$store.commit("local/select_properties", {
-        address: node.data.address,
-      });
-    },
-    add() {
-      this.$store.dispatch("rundown/add")
+    methods: {
+        handleDblClick(node) {
+            this.$store.commit("local/select", { address: node.data.address });
+        },
+        handleClick(node) {
+            this.$store.commit("local/select_properties", {
+                address: node.data.address
+            });
+        },
+        add() {
+            this.$store.dispatch("rundown/add");
+        }
     }
-  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

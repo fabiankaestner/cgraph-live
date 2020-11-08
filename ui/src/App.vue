@@ -1,5 +1,5 @@
 <template>
-    <div class="app">
+    <div class="app__container">
         <!--         <div class="row">
             <div class="col"><Sidebar /></div>
             <div class="col"><Selected /></div>
@@ -11,32 +11,32 @@
     </div>
 </template>
 
-<style scoped>
-.app {
+<style lang="scss">
+.app__container {
     display: flex;
     flex-direction: column;
 }
-.row {
+.app__row {
     display: flex;
     flex-direction: row;
     flex: 1 1 auto;
 }
-.status {
+.app__ {
+    flex: 1 1;
+    border: 1px solid;
+    border-radius: 1px;
+}
+.app__status-bar {
     height: 10px;
     flex: 0 0 auto;
 }
-.col {
-    flex: 1 1;
-    border: 1px solid rgb(10, 10, 10);
-    border-radius: 1px;
-}
 </style>
 
-<style>
+<style lang="scss">
 body {
     margin: 0;
     padding: 0;
-    background-color: rgb(37, 37, 37) !important;
+    background-color: $bg-color;
     font-family: "Segoe UI" !important;
 }
 </style>
@@ -58,6 +58,6 @@ export default {
  */
     },
 
-    data: () => ({}),
+    data: () => ({})
 };
 </script>
