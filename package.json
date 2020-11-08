@@ -9,5 +9,9 @@
         "server",
         "ui",
         "common"
-    ]
+    ],
+    "prettier": {
+        "tabWidth": 4,
+        "semi": true
+    }
 }

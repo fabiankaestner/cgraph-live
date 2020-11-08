@@ -1,19 +1,17 @@
 {
-  "name": "server",
-  "version": "0.1.0",
-  "private": "true",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "nodemon --ignore state.json --experimental-specifier-resolution=node"
-  },
-  "type": "module",
-  "devDependencies": {
-    "nodemon": "^2.0.6"
-  },
-  "dependencies": {
-    "vue": "^2.6.12",
-    "vuex": "^3.5.1",
-    "ws": "^7.3.1",
-    "common": "*"
-  }
+    "name": "server",
+    "version": "0.1.0",
+    "private": "true",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "nodemon --ignore state.json --experimental-specifier-resolution=node"
+    },
+    "type": "module",
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    },
+    "dependencies": {
+        "ws": "^7.3.1",
+        "common": "*"
+    }
 }
