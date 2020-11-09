@@ -1,5 +1,7 @@
 <template>
-    <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
+    <cg-tab-bar :tabs="tabNames" v-model="selectedTab" />
+    <cg-tab-view :tabs="tabs" v-model="selectedTab" />
+    <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-tabs v-model="tab" color="primary" dark slider-color="primary">
             <v-tab v-for="t in tabs" :key="t.address">
                 <v-icon @click="deselect(t.address)">mdi-close</v-icon>
@@ -11,36 +13,56 @@
                 <component :is="t.component" :address="t.id"></component>
             </v-tab-item>
         </v-tabs-items>
-    </v-card>
+    </v-card> -->
 </template>
 
 <script>
 import { parseStringAddress } from "common/helpers/address";
 import { getStrAddressFromState } from "common/helpers/getters";
 import Rundown from "./Rundown";
+import cgTabBar from "./Tabs/TabBar";
+import cgTabView from "./Tabs/TabView";
 
 export default {
     name: "Selected",
-    components: {},
+    components: {
+        cgTabBar,
+        cgTabView
+    },
+
     computed: {
         tabs() {
             const tabs = [];
             for (let address of this.$store.state.local.selected) {
-                const tab = getStrAddressFromState(this.$store.state, address);
                 const { type } = parseStringAddress(address);
-                let component = "";
+                let component = undefined;
                 if (type === "rundown") {
                     component = Rundown;
                 }
-                tabs.push({
-                    ...tab,
-                    address,
-                    component
-                });
+                tabs.push(component);
             }
             return tabs;
         },
-        tab: {
+
+        tabNames() {
+            const tabNames = [];
+            for (let address of this.$store.state.local.selected) {
+                if (address) {
+                    const tabObject = getStrAddressFromState(
+                        this.$store.state,
+                        address
+                    );
+                    if (tabObject) {
+                        tabNames.push(tabObject.props.name.value);
+                        continue;
+                    }
+                }
+                tabNames.push("UNDEFINED");
+            }
+            return tabNames;
+        },
+
+        selectedTab: {
             get() {
                 return this.$store.getters["local/currentlySelectedIdx"];
             },
@@ -51,6 +73,7 @@ export default {
             }
         }
     },
+
     methods: {
         deselect(address) {
             this.$store.commit("local/deselect", { address });
