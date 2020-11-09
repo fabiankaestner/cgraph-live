@@ -1,17 +1,11 @@
 <template>
     <div>
-        <v-toolbar dense flat>
-            <v-btn color="secondary" @click="add">
-                <v-icon>mdi-plus</v-icon>
-                Add
-            </v-btn>
-        </v-toolbar>
-        <Tree :tree="tree" @dblclick="handleDblClick" @click="handleClick" />
+        <Tree :elements="tree" />
     </div>
 </template>
 
 <script>
-import Tree from "./Tree";
+import Tree from "./Tree/Tree";
 
 export default {
     components: {
@@ -24,9 +18,7 @@ export default {
             for (let rundown in rundowns) {
                 data.push({
                     title: rundowns[rundown].props.name.value,
-                    isLeaf: true,
-                    isSelectable: false,
-                    data: { address: `/rundown/${rundown}` }
+                    address: `/rundown/${rundown}`
                 });
             }
             return data;

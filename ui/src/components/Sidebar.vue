@@ -1,5 +1,9 @@
 <template>
-    <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
+    <Window>
+        <TabBar :tabs="tabs" v-model="selectedTab" />
+        <TabView :tabs="tabContents" v-model="selectedTab" />
+    </Window>
+    <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-tabs
             v-model="tab"
             color="primary"
@@ -22,24 +26,37 @@
                 <Rundowns />
             </v-tab-item>
         </v-tabs-items>
-    </v-card>
+    </v-card> -->
 </template>
 
 <script>
-import Playbacks from "./Playbacks";
-import Data from "./Data";
+import { ref } from "vue";
+
+// import Playbacks from "./Playbacks";
+// import Data from "./Data";
 import Rundowns from "./Rundowns";
+import Window from "./Window";
+import TabBar from "./Tabs/TabBar";
+import TabView from "./Tabs/TabView";
 
 export default {
     name: "Sidebar",
     components: {
-        Playbacks,
-        Data,
-        Rundowns
+        Window,
+        TabBar,
+        TabView
     },
-    data: () => ({
-        tab: null
-    })
+    setup() {
+        const tabs = ["Rundown"];
+        const tabContents = [Rundowns];
+        const selectedTab = ref(0);
+
+        return {
+            tabs,
+            tabContents,
+            selectedTab
+        };
+    }
 };
 </script>
 
