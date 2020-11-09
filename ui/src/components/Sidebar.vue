@@ -1,8 +1,8 @@
 <template>
-    <Window>
-        <TabBar :tabs="tabs" v-model="selectedTab" />
-        <TabView :tabs="tabContents" v-model="selectedTab" />
-    </Window>
+    <cg-window>
+        <cg-tab-bar :tabs="tabs" v-model="selectedTab" />
+        <cg-tab-view :tabs="tabContents" v-model="selectedTab" />
+    </cg-window>
     <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-tabs
             v-model="tab"
@@ -34,21 +34,21 @@ import { ref } from "vue";
 
 // import Playbacks from "./Playbacks";
 // import Data from "./Data";
-import Rundowns from "./Rundowns";
-import Window from "./Window";
-import TabBar from "./Tabs/TabBar";
-import TabView from "./Tabs/TabView";
+import cgRundowns from "./Rundowns";
+import cgWindow from "./base/Window";
+import cgTabBar from "./Tabs/TabBar";
+import cgTabView from "./Tabs/TabView";
 
 export default {
     name: "Sidebar",
     components: {
-        Window,
-        TabBar,
-        TabView
+        cgWindow,
+        cgTabBar,
+        cgTabView
     },
     setup() {
         const tabs = ["Rundown"];
-        const tabContents = [Rundowns];
+        const tabContents = [cgRundowns];
         const selectedTab = ref(0);
 
         return {

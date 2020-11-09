@@ -2,9 +2,9 @@
     <div class="app__container">
         <div class="app__row">
             <div class="col"><Sidebar /></div>
-            <!-- <div class="col"><Selected /></div>
+            <div class="col"><Selected /></div>
             <div class="col"><Properties /></div>
-            <div class="col"><Tree /></div> -->
+            <div class="col"></div>
         </div>
         <div class="app__row app__status-bar">STATUS:OK</div>
     </div>
@@ -51,18 +51,16 @@ body {
 
 <script>
 import Sidebar from "./components/Sidebar";
-// import Selected from "./components/Selected";
-// import Properties from "./components/Properties";
-// import Tree from "./components/Tree/Tree";
+import Selected from "./components/Selected";
+import Properties from "./components/Properties";
 
 export default {
     name: "App",
 
     components: {
-        Sidebar
-        // Selected,
-        // Properties,
-        // Tree
+        Sidebar,
+        Selected,
+        Properties
     },
 
     data: () => ({})

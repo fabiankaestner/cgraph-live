@@ -1,5 +1,15 @@
 <template>
-    <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
+    <cg-window>
+        <h2>{{ name }}</h2>
+        <h6></h6>
+        <cg-property
+            v-for="name in props"
+            :key="name"
+            :value="evalProp(name)"
+            @input="handleUpdate"
+        ></cg-property>
+    </cg-window>
+    <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-card-title class="headline">{{ name }}</v-card-title>
         <v-card-subtitle>{{ address }}</v-card-subtitle>
         <v-divider></v-divider>
@@ -23,17 +33,18 @@
                 Commit Changes
             </v-btn>
         </v-container>
-    </v-card>
+    </v-card> -->
 </template>
 
 <script>
 import { parseStringAddress } from "common/helpers/address";
 
-import Property from "./Property.vue";
+import cgWindow from "./base/Window";
+import cgProperty from "./Property.vue";
 
 export default {
     name: "Properties",
-    components: { Property },
+    components: { cgProperty, cgWindow },
     data() {
         return { updated: false, updatedProps: {} };
     },
