@@ -1,13 +1,12 @@
 <template>
     <div class="app__container">
-        <!--         <div class="row">
-            <div class="col"><Sidebar /></div>
+        <div class="row">
+            <!-- <div class="col"><Sidebar /></div>
             <div class="col"><Selected /></div>
             <div class="col"><Properties /></div>
-            <div class="col"><Tree /></div>
+            <div class="col"><Tree /></div> -->
         </div>
         <div class="row status">STATUS:OK</div>
- -->
     </div>
 </template>
 
