@@ -1,9 +1,9 @@
 <template>
-    <Tree @drop="handleDrop" @click="handleClick" :tree="tree_data" />
+    <cg-tree @drop="handleDrop" @click="handleClick" :tree="tree_data" />
 </template>
 
 <script>
-import Tree from "./Tree";
+import cgTree from "./Tree/Tree";
 
 import { transformStateToDisplayTree } from "common/helpers/display_tree";
 import { getPathFromState } from "common/helpers/getters";
@@ -12,7 +12,7 @@ export default {
     name: "Rundown",
     props: ["address"],
     components: {
-        Tree
+        cgTree
     },
     methods: {
         handleDrop(payload) {

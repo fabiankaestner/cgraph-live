@@ -1,15 +1,19 @@
 <template>
     <div>
-        <Tree :elements="tree" />
+        <cg-tree
+            :elements="tree"
+            @click="handleClick"
+            @dblclick="handleDblClick"
+        />
     </div>
 </template>
 
 <script>
-import Tree from "./Tree/Tree";
+import cgTree from "./Tree/Tree";
 
 export default {
     components: {
-        Tree
+        cgTree
     },
     computed: {
         tree() {
@@ -18,7 +22,7 @@ export default {
             for (let rundown in rundowns) {
                 data.push({
                     title: rundowns[rundown].props.name.value,
-                    address: `/rundown/${rundown}`
+                    data: { address: `/rundown/${rundown}` }
                 });
             }
             return data;
