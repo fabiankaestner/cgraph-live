@@ -5,14 +5,19 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+const Component = defineComponent({
+    name: "App",
     setup() {
-        function completeState() {
-            this.$store.state;
+        function completeState(): any {
+            return this.$store.state.local;
         }
         return { completeState };
     }
-};
+});
+
+export default Component;
 </script>
 
 <style lang="scss">

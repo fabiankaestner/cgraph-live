@@ -1,4 +1,3 @@
-import Vue from "vue";
 import { createStore } from "vuex";
 
 import playback from "./modules/playback";

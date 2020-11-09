@@ -1,4 +1,3 @@
-import Vue from "vue";
 import { checkedID } from "../../id";
 import { Properties, PropertyUpdate } from "../types/properties";
 import { StateTree } from "../types/stateTree";
