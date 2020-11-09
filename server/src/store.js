@@ -1,8 +1,8 @@
 import store from "common/store/store";
-import { createStore } from "vuex";
+import Vuex from "vuex";
 import { webSocketSyncPlugin, manager } from "./websocket";
 
-export default createStore({
+export default Vuex.createStore({
     ...store,
     plugins: [webSocketSyncPlugin(manager), Vuex.createLogger()],
 });
