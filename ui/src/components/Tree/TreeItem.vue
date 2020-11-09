@@ -1,6 +1,6 @@
 <template>
     <div draggable="true" :class="$style.container">
-        <span>{{ item.name }}</span>
+        <span>{{ item.title }}</span>
     </div>
 </template>
 
