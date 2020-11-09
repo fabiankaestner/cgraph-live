@@ -4,22 +4,28 @@
         @dragleave.capture="handleDragEnd"
         class="container"
     >
-        <SubTree
+        <cg-sub-tree
             level="1"
             :elements="elements"
             :cursor="cursor"
             @cursor="handleCursor"
+            @click="$emit('click', $event)"
+            @dblclick="$emit('dblclick', $event)"
         />
     </div>
 </template>
 
 <script>
-import SubTree from "./SubTree";
+import cgSubTree from "./SubTree";
 
 export default {
-    props: ["elements"],
+    name: "cg-tree",
+    props: {
+        elements: Object
+    },
+    emits: ["click", "dblclick"],
     components: {
-        SubTree
+        cgSubTree
     },
     data() {
         return {

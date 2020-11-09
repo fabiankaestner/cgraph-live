@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    name: "cg-tree-item",
     props: ["item"]
 };
 </script>

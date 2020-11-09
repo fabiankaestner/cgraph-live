@@ -1,31 +1,37 @@
 <template>
     <div class="tree">
-        <template v-for="(child, idx) in elements">
-            <div :class="cursorClass(idx)" :key="'sep' + idx"></div>
+        <template v-for="(child, idx) in elements" :key="idx">
+            <div :class="cursorClass(idx)"></div>
             <div
                 v-if="child.children"
                 class="group"
-                :key="'group' + idx"
                 @dragover.stop="handleDragOver($event, idx)"
             >
-                <TreeItem
+                <cg-tree-item
                     :item="(({ children, ...rest }) => rest)(child)"
                     :data-index="idx"
+                    @click="handleClick(idx)"
+                    @dblclick="handleDblclick(idx)"
                 />
-                <SubTree
+                <cg-sub-tree
                     :level="level + 1"
                     :elements="child.children"
                     :cursor="childCursor"
                     @cursor="handleCursor($event, idx)"
+                    @click="handleClick(idx, $event)"
+                    @dblclick="handleDblclick(idx, $event)"
                 />
             </div>
             <div
                 v-else
                 class="item"
-                :key="'item' + idx"
                 @dragover.stop="handleDragOver($event, idx)"
             >
-                <TreeItem :item="child" />
+                <cg-tree-item
+                    :item="child"
+                    @click="handleClick(idx)"
+                    @dblclick="handleDblclick(idx)"
+                />
             </div>
         </template>
         <div :class="cursorClass(elements.length)"></div>
@@ -33,12 +39,20 @@
 </template>
 
 <script>
-import TreeItem from "./TreeItem";
+import cgTreeItem from "./TreeItem";
 
 export default {
-    name: "SubTree",
+    name: "cg-sub-tree",
+
+    props: {
+        elements: Array,
+        cursor: Object
+    },
+
+    emits: ["click", "dblclick"],
+
     components: {
-        TreeItem
+        cgTreeItem
     },
     methods: {
         isActiveCursor(idx) {
@@ -57,13 +71,18 @@ export default {
                 return true;
             }
         },
+
         cursorClass(idx) {
+            // Returns css classes for the provided index
+
             return `separator ${
                 this.isActiveCursor(idx) ? "separator__active" : ""
             }`;
         },
+
         handleDragOver(e, idx) {
             // get the hovered element & its dimensions
+
             const targetEl = e.target;
             const bounds = targetEl.getBoundingClientRect();
             const offset = bounds.top;
@@ -81,18 +100,45 @@ export default {
                 this.$emit("cursor", { path: [idx], placement: "after" });
             }
         },
+
         handleCursor({ path: _path, placement }, idx) {
+            // Bubble cursor events up the tree
+
             console.log("hC", _path, [idx, ..._path], idx, placement);
             this.$emit("cursor", { path: [idx, ..._path], placement });
+        },
+
+        getEventFor(idx, bubbledEvent) {
+            // returns the click/dblclick event for a given idx
+
+            const path = bubbledEvent ? [idx, ...bubbledEvent.path] : [idx];
+            const data = bubbledEvent
+                ? bubbledEvent.data
+                : this.elements[idx].data;
+
+            return {
+                path,
+                data
+            };
+        },
+
+        handleClick(idx, bubbledEvent) {
+            this.$emit("click", this.getEventFor(idx, bubbledEvent));
+        },
+
+        handleDblclick(idx, bubbledEvent) {
+            this.$emit("dblclick", this.getEventFor(idx, bubbledEvent));
         }
     },
     computed: {
         pathIdx() {
             return this.cursor.path[0];
         },
+
         placement() {
             return this.cursor.placement;
         },
+
         cursorActive() {
             // Check if this element is the correct level, or a child/parent element
 
@@ -102,6 +148,7 @@ export default {
                 (this.cursor.path.length === 0 && this.placement === "inside")
             );
         },
+
         childCursor() {
             if (placement === "inside" && this.cursor.path.length === 1) {
                 // prevent inside placement from affecting all child elements
@@ -111,8 +158,7 @@ export default {
             const [, ...newPath] = path;
             return { path: newPath, placement };
         }
-    },
-    props: ["root", "elements", "cursor", "level"]
+    }
 };
 </script>
 
