@@ -1,12 +1,11 @@
-import Vue from "vue"
-import { checkedID } from "../id"
+import { checkedID } from "../id";
 
 export default {
     namespaced: true,
     state: () => ({}),
     mutations: {
         add_with_id(state, { id, name }) {
-            Vue.set(state, id, {
+            state[id] = {
                 id,
                 props: {
                     name: {
@@ -14,54 +13,52 @@ export default {
                         value: name,
                         autoUpdate: false,
                         link: false,
-                        own: true
-                    }
+                        own: true,
+                    },
                 },
-                tree: []
-            })
+                tree: [],
+            };
         },
         update_property(state, { update, name, id } = {}) {
-            state[id].props[name] = update
-        }
+            state[id].props[name] = update;
+        },
     },
     getters: {
         getPropertyNames: (state) => (id, excludeOwn) => {
-
             // return array of all property names
 
-            const rundown = state[id]
+            const rundown = state[id];
             if (!rundown) {
-                return undefined
+                return undefined;
             }
 
             const props = [];
 
             if (!excludeOwn) {
                 for (let name in rundown.props) {
-                    props.push(name)
+                    props.push(name);
                 }
             }
-            return props
+            return props;
         },
         evaluate: (state) => (id, property) => {
-
             // evaluate a property (rundowns don't inherit, so simply return the value)
 
-            const rundown = state[id]
+            const rundown = state[id];
             if (!rundown || !rundown.props[property]) {
-                return undefined
+                return undefined;
             }
 
-            return rundown.props[property]
-        }
+            return rundown.props[property];
+        },
     },
     actions: {
         add({ commit, state }) {
-            const id = checkedID(id => !!state[id])
+            const id = checkedID((id) => !!state[id]);
             commit("add_with_id", {
                 id,
-                name: `Rundown ${Object.keys(state).length + 1}`
-            })
-        }
-    }
-}
+                name: `Rundown ${Object.keys(state).length + 1}`,
+            });
+        },
+    },
+};
