@@ -17,24 +17,12 @@
 import SubTree from "./SubTree";
 
 export default {
-    props: ["container", "treeItem", "separator"],
+    props: ["elements"],
     components: {
         SubTree
     },
     data() {
         return {
-            elements: [
-                { name: "Element 1" },
-                { name: "Element 2" },
-                { name: "Element 3" },
-                {
-                    name: "Element 4",
-                    children: [{ name: "Child 1" }, { name: "Child 2" }]
-                },
-                { name: "Element 5" },
-                { name: "Element 6" },
-                { name: "Element 7" }
-            ],
             cursor: { path: [], position: "" }
         };
     },

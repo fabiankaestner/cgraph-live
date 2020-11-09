@@ -45,7 +45,7 @@ export default {
             });
         },
         beforeDrop(nodes, position, cancel) {
-            this.$emit("beforeDrop", { nodes, position, cancel });
+            this.$emit("beforedrop", { nodes, position, cancel });
         },
         handleDrop(dragged, { node, placement }) {
             this.$emit("drop", {
