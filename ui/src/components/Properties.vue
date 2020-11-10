@@ -2,12 +2,15 @@
     <cg-window>
         <h2>{{ name }}</h2>
         <h6></h6>
-        <cg-property
-            v-for="name in props"
-            :key="name"
-            :value="evalProp(name)"
-            @input="handleUpdate"
-        ></cg-property>
+        <ul>
+            <cg-property
+                v-for="name in props"
+                :key="name"
+                :value="evalProp(name)"
+                @input="handleUpdate"
+            />
+        </ul>
+        <cg-button v-if="updated" @click="commit">Commit Changes</cg-button>
     </cg-window>
     <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-card-title class="headline">{{ name }}</v-card-title>
@@ -41,17 +44,20 @@ import { parseStringAddress } from "common/helpers/address";
 
 import cgWindow from "./base/Window";
 import cgProperty from "./Property.vue";
+import cgButton from "./base/Button";
 
 export default {
     name: "Properties",
-    components: { cgProperty, cgWindow },
+    components: { cgProperty, cgWindow, cgButton },
     data() {
         return { updated: false, updatedProps: {} };
     },
     methods: {
         handleUpdate({ own, name, type, value, autoUpdate, link }) {
+            console.log("here");
             this.updatedProps[name] = {
                 type,
+                name,
                 value,
                 autoUpdate,
                 link,

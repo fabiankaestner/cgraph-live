@@ -1,5 +1,9 @@
 <template>
-    <v-list-item>
+    <li>
+        <cg-text-field v-model="v" :label="value.name"></cg-text-field>
+        <span>{{ value.inherited }}</span>
+    </li>
+    <!-- <v-list-item>
         <v-list-item-content>
             <v-flex>
                 <v-text-field
@@ -34,13 +38,19 @@
                 </v-btn>
             </v-flex>
         </v-list-item-content>
-    </v-list-item>
+    </v-list-item> -->
 </template>
 
 <script>
+import cgTextField from "./base/TextField";
+
 export default {
     name: "StringProperty",
     props: ["value"],
+    emits: ["input"],
+    components: {
+        cgTextField
+    },
     methods: {
         link() {
             this.$emit("input", { ...this.value, link: !this.value.link });

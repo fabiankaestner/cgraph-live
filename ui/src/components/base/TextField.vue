@@ -1,11 +1,7 @@
 <template>
     <div>
         <label>{{ label }}</label>
-        <input
-            type="text"
-            :value="modelValue"
-            @input="$emit('update:modelValue', $event.value)"
-        />
+        <input type="text" v-model="model" />
     </div>
 </template>
 
@@ -15,7 +11,17 @@ export default {
         modelValue: String,
         label: String
     },
-    emits: ["update:modelValue"]
+    emits: ["update:modelValue"],
+    computed: {
+        model: {
+            get() {
+                return this.modelValue;
+            },
+            set(newValue) {
+                this.$emit("update:modelValue", newValue);
+            }
+        }
+    }
 };
 </script>
 

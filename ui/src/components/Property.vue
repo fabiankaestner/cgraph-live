@@ -3,16 +3,17 @@
 </template>
 
 <script>
-import StringProperty from "./StringProperty";
+import cgStringProperty from "./StringProperty";
 
 export default {
-    name: "Property",
+    name: "cg-property",
     props: ["value"],
+    emits: ["input"],
     computed: {
         component() {
             if (this.value) {
                 if (this.value.type === "string") {
-                    return StringProperty;
+                    return cgStringProperty;
                 }
             }
             return undefined;
