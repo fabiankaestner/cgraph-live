@@ -45,7 +45,7 @@ export default {
     name: "cg-sub-tree",
 
     props: {
-        elements: Array,
+        elements: { type: Array, default: () => [] },
         cursor: Object
     },
 
