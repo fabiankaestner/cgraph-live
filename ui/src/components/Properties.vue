@@ -50,18 +50,18 @@ export default {
     },
     methods: {
         handleUpdate({ own, name, type, value, autoUpdate, link }) {
-            this.$set(this.updatedProps, name, {
+            this.updatedProps[name] = {
                 type,
                 value,
                 autoUpdate,
                 link,
                 own
-            });
+            };
             this.updated = true;
         },
         evalProp(name) {
             if (this.updatedProps[name] === undefined) {
-                this.$set(this.updatedProps, name, false);
+                this.updatedProps[name] = false;
             }
             return this.$store.getters[`${this.type}/evaluate`](this.id, name);
         },
