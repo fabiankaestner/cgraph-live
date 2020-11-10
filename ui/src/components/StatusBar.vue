@@ -23,7 +23,7 @@ export default {};
 }
 
 .status-bar__status {
-    color: $color-fg;
+    color: $color-ok;
     padding: 0px 10px;
 }
 </style>

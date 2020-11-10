@@ -1,7 +1,7 @@
 <template>
-    <li>
+    <li :class="{ tabs__handle: true, 'tabs__handle--active': active }">
         <span v-if="close" @click.prevent="$emit('close')">X</span>
-        <span :class="{ 'tabs__handle--active': active }">{{ name }}</span>
+        <span class="tabs__handle__title">{{ name }}</span>
     </li>
 </template>
 
@@ -18,8 +18,19 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+.tabs__handle {
+    margin: 0px;
+    padding: 0px 10px;
+
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+
 .tabs__handle--active {
-    color: red;
+    color: $color-primary;
+    border-top: $border-width solid $color-primary;
+    background-color: $color-bg;
 }
 </style>

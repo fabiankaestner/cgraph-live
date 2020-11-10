@@ -1,5 +1,5 @@
 <template>
-    <ul>
+    <ul class="tabs__bar">
         <cg-tab-handle
             v-for="(tab, idx) in tabs"
             :key="idx"
@@ -28,4 +28,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.tabs__bar {
+    margin: 0px;
+    padding: 0px;
+
+    height: 35px;
+    background-color: $color-bg-dark;
+}
+</style>
