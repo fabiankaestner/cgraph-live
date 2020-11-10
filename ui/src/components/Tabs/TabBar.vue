@@ -1,28 +1,31 @@
 <template>
     <ul>
-        <li
+        <cg-tab-handle
             v-for="(tab, idx) in tabs"
             :key="idx"
+            :name="tab"
+            :active="modelValue === idx"
+            :close="close"
+            @close="$emit('close', idx)"
             @click="$emit('update:modelValue', idx)"
-            :class="{ 'tabs__item--active': modelValue === idx }"
-        >
-            {{ tab }}
-        </li>
+        />
     </ul>
 </template>
 
 <script>
+import cgTabHandle from "./TabHandle";
+
 export default {
     props: {
         tabs: Array,
-        modelValue: Number
+        modelValue: Number,
+        close: Boolean
     },
-    emits: ["update:modelValue"]
+    emits: ["update:modelValue", "close"],
+    components: {
+        cgTabHandle
+    }
 };
 </script>
 
-<style>
-.tabs__item--active {
-    color: red;
-}
-</style>
+<style></style>
