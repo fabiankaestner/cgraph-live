@@ -14,7 +14,6 @@
                     @dblclick="handleDblclick(idx)"
                 />
                 <cg-sub-tree
-                    :level="level + 1"
                     :elements="child.children"
                     :cursor="childCursor"
                     @cursor="handleCursor($event, idx)"
