@@ -103,7 +103,6 @@ export default {
         handleCursor({ path: _path, placement }, idx) {
             // Bubble cursor events up the tree
 
-            console.log("hC", _path, [idx, ..._path], idx, placement);
             this.$emit("cursor", { path: [idx, ..._path], placement });
         },
 

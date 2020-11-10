@@ -44,7 +44,6 @@ export default {
             this.cursor = cursor;
         },
         handleDragEnd() {
-            console.log("end");
             this.cursor = { path: [], placement: "" };
         }
     }

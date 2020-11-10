@@ -54,7 +54,6 @@ export default {
     },
     methods: {
         handleUpdate({ own, name, type, value, autoUpdate, link }) {
-            console.log("here");
             this.updatedProps[name] = {
                 type,
                 name,

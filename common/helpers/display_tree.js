@@ -23,6 +23,5 @@ export function transformStateToDisplayTree(state, tree, parentGroup) {
             });
         }
     }
-    console.log(display_tree);
     return display_tree;
 }

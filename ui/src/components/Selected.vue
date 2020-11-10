@@ -88,7 +88,6 @@ export default {
 
     methods: {
         deselect(address) {
-            console.log("DESELECTING");
             this.$store.commit("local/deselect", { address });
         }
     }

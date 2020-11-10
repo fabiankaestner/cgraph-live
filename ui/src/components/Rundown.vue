@@ -33,8 +33,6 @@ export default {
                 "rundown",
                 this.$props.address
             ]);
-            console.log(this.$store.state);
-            console.log(rundown);
 
             if (rundown) {
                 return transformStateToDisplayTree(state, rundown.tree, "");
