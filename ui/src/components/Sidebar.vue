@@ -1,7 +1,9 @@
 <template>
     <cg-window>
         <cg-tab-bar :tabs="tabs" v-model="selectedTab" />
-        <cg-tab-view :tabs="tabContents" v-model="selectedTab" />
+        <cg-tab-view v-model="selectedTab">
+            <cg-rundowns />
+        </cg-tab-view>
     </cg-window>
     <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-tabs
@@ -44,16 +46,15 @@ export default {
     components: {
         cgWindow,
         cgTabBar,
-        cgTabView
+        cgTabView,
+        cgRundowns
     },
     setup() {
         const tabs = ["Rundown"];
-        const tabContents = [cgRundowns];
         const selectedTab = ref(0);
 
         return {
             tabs,
-            tabContents,
             selectedTab
         };
     }

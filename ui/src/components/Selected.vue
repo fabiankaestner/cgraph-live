@@ -1,6 +1,18 @@
 <template>
-    <cg-tab-bar :tabs="tabNames" v-model="selectedTab" />
-    <cg-tab-view :tabs="tabs" v-model="selectedTab" />
+    <cg-tab-bar
+        :tabs="tabNames"
+        v-model="selectedTab"
+        close
+        @close="deselect"
+    />
+    <cg-tab-view v-model="selectedTab">
+        <component
+            v-for="(tab, idx) in tabs"
+            :key="idx"
+            :is="tab.component"
+            :address="tab.address"
+        />
+    </cg-tab-view>
     <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-tabs v-model="tab" color="primary" dark slider-color="primary">
             <v-tab v-for="t in tabs" :key="t.address">
@@ -39,7 +51,7 @@ export default {
                 if (type === "rundown") {
                     component = Rundown;
                 }
-                tabs.push(component);
+                tabs.push({ component, address });
             }
             return tabs;
         },
@@ -76,6 +88,7 @@ export default {
 
     methods: {
         deselect(address) {
+            console.log("DESELECTING");
             this.$store.commit("local/deselect", { address });
         }
     }
