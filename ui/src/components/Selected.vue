@@ -10,7 +10,7 @@
             v-for="(tab, idx) in tabs"
             :key="idx"
             :is="tab.component"
-            :address="tab.address"
+            :address="tab.id"
         />
     </cg-tab-view>
     <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
@@ -46,12 +46,12 @@ export default {
         tabs() {
             const tabs = [];
             for (let address of this.$store.state.local.selected) {
-                const { type } = parseStringAddress(address);
+                const { type, id } = parseStringAddress(address);
                 let component = undefined;
                 if (type === "rundown") {
                     component = Rundown;
                 }
-                tabs.push({ component, address });
+                tabs.push({ component, id });
             }
             return tabs;
         },

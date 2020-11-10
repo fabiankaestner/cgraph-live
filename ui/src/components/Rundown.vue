@@ -1,5 +1,5 @@
 <template>
-    <cg-tree @drop="handleDrop" @click="handleClick" :tree="tree_data" />
+    <cg-tree @drop="handleDrop" @click="handleClick" :elements="tree_data" />
 </template>
 
 <script>
@@ -33,6 +33,8 @@ export default {
                 "rundown",
                 this.$props.address
             ]);
+            console.log(this.$store.state);
+            console.log(rundown);
 
             if (rundown) {
                 return transformStateToDisplayTree(state, rundown.tree, "");
