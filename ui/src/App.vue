@@ -1,16 +1,20 @@
 <template>
     <div class="app__container">
         <div class="app__row">
-            <div class="col"><Sidebar /></div>
-            <div class="col"><Selected /></div>
-            <div class="col"><Properties /></div>
-            <div class="col"></div>
+            <div class="app__col"><Sidebar /></div>
+            <div class="app__col"><Selected /></div>
+            <div class="app__col"><Properties /></div>
+            <div class="app__col"></div>
         </div>
-        <div class="app__row app__status-bar">STATUS:OK</div>
+        <cg-status-bar />
     </div>
 </template>
 
 <style lang="scss">
+* {
+    box-sizing: border-box;
+}
+
 html,
 body {
     margin: 0;
@@ -19,7 +23,8 @@ body {
     height: 100%;
     width: 100%;
 
-    background-color: $bg-color;
+    background-color: $color-bg;
+    color: $color-fg;
     font-family: "Roboto";
 }
 
@@ -40,12 +45,9 @@ body {
     flex: 1 1 auto;
 }
 .app__col {
-    border: 1px solid;
+    border-left: $border-width solid $color-border;
     border-radius: 1px;
-}
-.app__status-bar {
-    height: 25px;
-    flex: 0 0 auto;
+    flex: 1 1 auto;
 }
 </style>
 
@@ -53,6 +55,7 @@ body {
 import Sidebar from "./components/Sidebar";
 import Selected from "./components/Selected";
 import Properties from "./components/Properties";
+import cgStatusBar from "./components/StatusBar";
 
 export default {
     name: "App",
@@ -60,7 +63,8 @@ export default {
     components: {
         Sidebar,
         Selected,
-        Properties
+        Properties,
+        cgStatusBar
     },
 
     data: () => ({})
