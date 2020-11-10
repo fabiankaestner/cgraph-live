@@ -1,5 +1,5 @@
 <template>
-    <div draggable="true" :class="$style.container">
+    <div draggable="true" class="tree__container">
         <span>{{ item.title }}</span>
     </div>
 </template>
@@ -11,13 +11,18 @@ export default {
 };
 </script>
 
-<style module>
-.container {
+<style lang="scss">
+.tree__container {
     width: 100%;
     padding: 7px 13px;
     border-radius: 1px;
-}
-.container:hover {
-    background-color: #c62f5220;
+    &:hover {
+        background-color: transparentize(
+            $color: lighten($color: $color-primary, $amount: 0.3),
+            $amount: 0.6
+        );
+        cursor: pointer;
+        transition: 0.2s;
+    }
 }
 </style>
