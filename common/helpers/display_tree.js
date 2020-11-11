@@ -3,6 +3,8 @@ import { parseStringAddress } from "./address";
 export function transformStateToDisplayTree(state, tree, parentGroup) {
     const display_tree = [];
 
+    console.log(tree);
+
     for (let node_addr of tree) {
         const { type, id } = parseStringAddress(node_addr);
 
