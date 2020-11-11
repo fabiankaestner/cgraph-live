@@ -2,17 +2,18 @@
     <div class="tree__container">
         <template v-for="(child, idx) in elements" :key="idx">
             <div :class="cursorClass(idx)"></div>
-            <div
-                v-if="child.children"
-                class="tree__group"
-                @dragover.stop="handleDragOver($event, idx)"
-            >
-                <cg-tree-item
-                    :item="(({ children, ...rest }) => rest)(child)"
-                    :data-index="idx"
-                    @click="handleClick(idx)"
-                    @dblclick="handleDblclick(idx)"
-                />
+            <div v-if="child.children" class="tree__group">
+                <div
+                    class="tree__item__container"
+                    @dragover.stop="handleDragOver($event, idx)"
+                >
+                    <cg-tree-item
+                        :item="(({ children, ...rest }) => rest)(child)"
+                        :data-index="idx"
+                        @click="handleClick(idx)"
+                        @dblclick="handleDblclick(idx)"
+                    />
+                </div>
                 <cg-sub-tree
                     :elements="child.children"
                     :cursor="childCursor"
@@ -48,7 +49,7 @@ export default {
         cursor: Object
     },
 
-    emits: ["click", "dblclick"],
+    emits: ["click", "dblclick", "cursor"],
 
     components: {
         cgTreeItem
@@ -173,6 +174,9 @@ export default {
     background-color: rgba(33, 45, 200, 0.5);
     width: 100%;
     opacity: 0;
+}
+.tree__item__container {
+    padding: 3px;
 }
 .tree__separator--active::before {
     opacity: 1;

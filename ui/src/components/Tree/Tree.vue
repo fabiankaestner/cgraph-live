@@ -1,8 +1,9 @@
 <template>
     <div
         @dragover="dragOver"
-        @dragleave.capture="handleDragEnd"
-        class="container"
+        @dragend.capture="handleDragEnd"
+        @dragleave="handleDragLeave"
+        class="tree__scroll-container"
     >
         <cg-sub-tree
             level="1"
@@ -45,13 +46,27 @@ export default {
         },
         handleDragEnd() {
             this.cursor = { path: [], placement: "" };
+        },
+        handleDragLeave(e) {
+            const parent = this.$el.parentElement;
+            const bounds = parent.getBoundingClientRect();
+            if (
+                e.clientX <= bounds.x ||
+                e.clientX >= bounds.x + parent.clientWidth ||
+                e.clientY <= bounds.y ||
+                e.clientY >= bounds.y + parent.clientHeight
+            ) {
+                // the event is at the bounding box of the parent container
+                this.handleDragEnd();
+            }
         }
     }
 };
 </script>
 
-<style scoped>
-.container {
-    flex: 1 1 auto;
+<style>
+.tree__scroll-container {
+    width: 100%;
+    height: 100%;
 }
 </style>

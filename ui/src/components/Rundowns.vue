@@ -1,11 +1,5 @@
 <template>
-    <div>
-        <cg-tree
-            :elements="tree"
-            @click="handleClick"
-            @dblclick="handleDblClick"
-        />
-    </div>
+    <cg-tree :elements="tree" @click="handleClick" @dblclick="handleDblClick" />
 </template>
 
 <script>

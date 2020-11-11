@@ -16,7 +16,6 @@ export default {
     padding: 8px 13px;
     border-radius: 3px;
     box-sizing: border-box;
-    margin: 3px;
     font-weight: 500;
     background-position: center;
 
