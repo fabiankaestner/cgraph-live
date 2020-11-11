@@ -164,7 +164,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .tree__separator {
     height: 0px;
     position: relative;
@@ -174,7 +174,7 @@ export default {
     height: 4px;
     top: -2px;
     position: absolute;
-    background-color: rgba(33, 45, 200, 0.5);
+    background-color: transparentize($color-primary, 0.5);
     width: 100%;
     opacity: 0;
 }
