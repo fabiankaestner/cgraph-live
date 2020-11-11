@@ -16,7 +16,7 @@
                 </div>
                 <cg-sub-tree
                     :elements="child.children"
-                    :cursor="childCursor"
+                    :cursor="childCursor(idx)"
                     @cursor="handleCursor($event, idx)"
                     @click="handleClick(idx, $event)"
                     @dblclick="handleDblclick(idx, $event)"
@@ -127,6 +127,19 @@ export default {
 
         handleDblclick(idx, bubbledEvent) {
             this.$emit("dblclick", this.getEventFor(idx, bubbledEvent));
+        },
+        childCursor(idx) {
+            if (
+                (placement === "inside" && this.cursor.path.length === 1) ||
+                idx !== this.pathIdx
+            ) {
+                // prevent cursor on child elements if inside this group
+                // or child elements that are not in the path
+                return { path: [], placement: "" };
+            }
+            const { path, placement } = this.cursor;
+            const [, ...newPath] = path;
+            return { path: newPath, placement };
         }
     },
     computed: {
@@ -146,16 +159,6 @@ export default {
                     this.placement !== "inside") ||
                 (this.cursor.path.length === 0 && this.placement === "inside")
             );
-        },
-
-        childCursor() {
-            if (placement === "inside" && this.cursor.path.length === 1) {
-                // prevent inside placement from affecting all child elements
-                return { path: [], placement: "" };
-            }
-            const { path, placement } = this.cursor;
-            const [, ...newPath] = path;
-            return { path: newPath, placement };
         }
     }
 };
