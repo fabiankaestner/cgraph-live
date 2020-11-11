@@ -1,5 +1,7 @@
 <template>
-    <Icon :icon="icons[i]" :height="height" />
+    <span class="icon">
+        <Icon :icon="icons[i]" :height="height" />
+    </span>
 </template>
 
 <script>
@@ -29,6 +31,7 @@ export default {
 
 <style>
 .icon {
-    font-family: "mdi-icons";
+    display: inline-flex;
+    align-items: center;
 }
 </style>

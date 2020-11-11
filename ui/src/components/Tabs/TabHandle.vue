@@ -1,16 +1,19 @@
 <template>
     <li :class="{ tabs__handle: true, 'tabs__handle--active': active }">
-        <span
+        <span class="tabs__handle__title">{{ name }}</span>
+        <cg-icon
+            i="close"
+            height="18"
             class="tabs__handle__close"
             v-if="close"
             @click.prevent="$emit('close')"
-            >X</span
-        >
-        <span class="tabs__handle__title">{{ name }}</span>
+        />
     </li>
 </template>
 
 <script>
+import cgIcon from "../base/Icon";
+
 export default {
     name: "cg-tab-handle",
     props: {
@@ -19,7 +22,7 @@ export default {
         active: Boolean
     },
     emits: ["close"],
-    components: {}
+    components: { cgIcon }
 };
 </script>
 
@@ -37,14 +40,15 @@ export default {
 
 .tabs__handle__title {
     font-size: 0.9em;
-    padding-left: 5px;
+    padding: 5px;
 }
 
-.tybs__handle__close {
-    padding: 3px;
+.tabs__handle__close {
     border-radius: 50%;
+    padding: 1px;
+    transition: 0.2s;
     &:hover {
-        background-color: lighten($color-bg, 50);
+        background-color: transparentize($color-fg, 0.8);
     }
 }
 
