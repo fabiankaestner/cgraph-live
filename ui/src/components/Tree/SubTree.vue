@@ -1,10 +1,10 @@
 <template>
-    <div class="tree">
+    <div class="tree__container">
         <template v-for="(child, idx) in elements" :key="idx">
             <div :class="cursorClass(idx)"></div>
             <div
                 v-if="child.children"
-                class="group"
+                class="tree__group"
                 @dragover.stop="handleDragOver($event, idx)"
             >
                 <cg-tree-item
@@ -23,7 +23,7 @@
             </div>
             <div
                 v-else
-                class="item"
+                class="tree__item__container"
                 @dragover.stop="handleDragOver($event, idx)"
             >
                 <cg-tree-item
@@ -161,11 +161,11 @@ export default {
 </script>
 
 <style>
-.separator {
+.tree__separator {
     height: 0px;
     position: relative;
 }
-.separator::before {
+.tree__separator::before {
     content: "";
     height: 4px;
     top: -2px;
@@ -174,10 +174,10 @@ export default {
     width: 100%;
     opacity: 0;
 }
-.separator__active::before {
+.tree__separator--active::before {
     opacity: 1;
 }
-.tree {
+.tree__group > .tree__container {
     padding-left: 10px;
 }
 </style>

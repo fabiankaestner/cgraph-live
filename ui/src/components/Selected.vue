@@ -51,7 +51,7 @@ export default {
                 if (type === "rundown") {
                     component = Rundown;
                 }
-                tabs.push({ component, id });
+                tabs.push({ component, id, address });
             }
             return tabs;
         },
@@ -87,8 +87,10 @@ export default {
     },
 
     methods: {
-        deselect(address) {
-            this.$store.commit("local/deselect", { address });
+        deselect(idx) {
+            this.$store.commit("local/deselect", {
+                address: this.tabs[idx].address
+            });
         }
     }
 };

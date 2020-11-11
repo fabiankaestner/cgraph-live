@@ -1,5 +1,5 @@
 <template>
-    <div draggable="true" class="tree__container">
+    <div draggable="true" class="tree__item">
         <span>{{ item.title }}</span>
     </div>
 </template>
@@ -12,17 +12,26 @@ export default {
 </script>
 
 <style lang="scss">
-.tree__container {
-    width: 100%;
-    padding: 7px 13px;
-    border-radius: 1px;
+.tree__item {
+    padding: 8px 13px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin: 3px;
+    font-weight: 500;
+    background-position: center;
+
+    $c: transparentize(lighten($color-primary, 0), 0.5);
+
     &:hover {
-        background-color: transparentize(
-            $color: lighten($color: $color-primary, $amount: 0.3),
-            $amount: 0.6
-        );
+        background-color: $c;
         cursor: pointer;
-        transition: 0.2s;
+        transition: 0.4s;
+    }
+
+    &:active {
+        background-color: lighten($c, 10);
+        background-size: 100%;
+        transition: background 0s;
     }
 }
 </style>

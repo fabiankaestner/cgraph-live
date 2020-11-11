@@ -27,6 +27,7 @@ export default {
     display: inline-flex;
     align-items: center;
     cursor: pointer;
+    user-select: none;
 }
 
 .tabs__handle--active {
