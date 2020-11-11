@@ -13,9 +13,19 @@ export default {
             return undefined;
         }
         const component = this.$slots.default()[this.modelValue];
-        return <component />;
+        return (
+            <div class="tabs__view">
+                <component />
+            </div>
+        );
     }
 };
 </script>
 
-<style></style>
+<style>
+.tabs__view {
+    flex: 1 0 auto;
+    flex-basis: 0;
+    overflow: auto;
+}
+</style>

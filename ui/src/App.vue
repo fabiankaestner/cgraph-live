@@ -15,6 +15,14 @@
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparentize($color-fg, 0.7);
+}
+
 html,
 body {
     margin: 0;

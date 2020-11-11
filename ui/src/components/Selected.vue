@@ -1,18 +1,20 @@
 <template>
-    <cg-tab-bar
-        :tabs="tabNames"
-        v-model="selectedTab"
-        close
-        @close="deselect"
-    />
-    <cg-tab-view v-model="selectedTab">
-        <component
-            v-for="(tab, idx) in tabs"
-            :key="idx"
-            :is="tab.component"
-            :address="tab.id"
+    <cg-window>
+        <cg-tab-bar
+            :tabs="tabNames"
+            v-model="selectedTab"
+            close
+            @close="deselect"
         />
-    </cg-tab-view>
+        <cg-tab-view v-model="selectedTab">
+            <component
+                v-for="(tab, idx) in tabs"
+                :key="idx"
+                :is="tab.component"
+                :address="tab.id"
+            />
+        </cg-tab-view>
+    </cg-window>
     <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-tabs v-model="tab" color="primary" dark slider-color="primary">
             <v-tab v-for="t in tabs" :key="t.address">
@@ -34,12 +36,14 @@ import { getStrAddressFromState } from "common/helpers/getters";
 import Rundown from "./Rundown";
 import cgTabBar from "./Tabs/TabBar";
 import cgTabView from "./Tabs/TabView";
+import cgWindow from "./base/Window";
 
 export default {
     name: "Selected",
     components: {
         cgTabBar,
-        cgTabView
+        cgTabView,
+        cgWindow
     },
 
     computed: {
