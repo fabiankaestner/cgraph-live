@@ -47,7 +47,8 @@ body {
 .app__col {
     border-left: $border-width solid $color-border;
     border-radius: 1px;
-    flex: 1 1 auto;
+    flex: 1 0 auto;
+    flex-basis: 0;
 }
 </style>
 

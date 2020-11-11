@@ -26,11 +26,12 @@ export default {
     height: 100%;
     display: inline-flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .tabs__handle--active {
     color: $color-primary;
-    border-top: $border-width solid $color-primary;
+    border-top: 3px solid $color-primary;
     background-color: $color-bg;
 }
 </style>
