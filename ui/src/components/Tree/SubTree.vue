@@ -9,8 +9,8 @@
                 >
                     <cg-tree-item
                         :item="(({ children, ...rest }) => rest)(child)"
-                        @click="handleClick(idx)"
-                        @dblclick="handleDblclick(idx)"
+                        @click="handleClick(idx, $event)"
+                        @dblclick="handleDblclick(idx, $event)"
                     />
                 </div>
                 <cg-sub-tree
@@ -28,8 +28,8 @@
             >
                 <cg-tree-item
                     :item="child"
-                    @click="handleClick(idx)"
-                    @dblclick="handleDblclick(idx)"
+                    @click="handleClick(idx, $event)"
+                    @dblclick="handleDblclick(idx, $event)"
                 />
             </div>
         </template>
@@ -112,14 +112,22 @@ export default {
         getEventFor(idx, bubbledEvent) {
             // returns the click/dblclick event for a given idx
 
-            const path = bubbledEvent ? [idx, ...bubbledEvent.path] : [idx];
-            const data = bubbledEvent
+            const path = bubbledEvent.isCustom
+                ? [idx, ...bubbledEvent.path]
+                : [idx];
+            const data = bubbledEvent.isCustom
                 ? bubbledEvent.data
                 : this.elements[idx].data;
-
+            const keys = bubbledEvent.isCustom
+                ? bubbledEvent.keys
+                : {
+                      ctrl: bubbledEvent.getModifierState("Control")
+                  };
             return {
+                isCustom: true,
                 path,
-                data
+                data,
+                keys
             };
         },
 

@@ -22,7 +22,8 @@ import cgSubTree from "./SubTree";
 export default {
     name: "cg-tree",
     props: {
-        elements: Object
+        elements: Object,
+        address: String
     },
     emits: ["click", "dblclick"],
     components: {

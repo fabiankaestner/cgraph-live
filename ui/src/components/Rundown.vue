@@ -23,6 +23,19 @@ export default {
             this.$store.commit("local/select_properties", {
                 address: node.data.address
             });
+            if (node.keys.ctrl) {
+                this.$store.commit("local/select_tree_add", {
+                    address: `/rundown/${this.$props.address}`,
+                    selectedPath: node.path,
+                    selectedAddress: node.data.address
+                });
+            } else {
+                this.$store.commit("local/select_tree", {
+                    address: `/rundown/${this.$props.address}`,
+                    selectedPath: node.path,
+                    selectedAddress: node.data.address
+                });
+            }
         }
     },
     computed: {
@@ -35,7 +48,13 @@ export default {
             ]);
 
             if (rundown) {
-                return transformStateToDisplayTree(state, rundown.tree, "");
+                return transformStateToDisplayTree(
+                    state,
+                    rundown.tree,
+                    this.$store.state.local.treeSelections[
+                        `/rundown/${this.$props.address}`
+                    ]
+                );
             }
             return [];
         }

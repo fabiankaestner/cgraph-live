@@ -76,6 +76,7 @@ const initial = {
     group: {
         "5r2g4v8vv1": {
             id: "5r2g4v8vv1",
+            expanded: true,
             props: {
                 name: {
                     type: "string",
@@ -105,7 +106,12 @@ const initial = {
             tree: ["/group/5r2g4v8vv1"],
         },
     },
-    local: { currentlySelected: "", selected: [], properties: "" },
+    local: {
+        currentlySelected: "",
+        selected: [],
+        properties: "",
+        treeSelections: {},
+    },
 };
 
 async function initStore() {
@@ -151,6 +157,7 @@ async function initStore() {
             const id = checkedID((id) => !!initial.group[id]);
             initial.group[id] = {
                 id,
+                expanded: true,
                 props: {
                     name: {
                         type: "string",
