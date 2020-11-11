@@ -115,17 +115,19 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .properties__container {
     padding: 20px;
 }
 .properties__title {
     margin: 15px 0 0;
+    color: lighten($color-fg, 10);
 }
 .properties__address {
     margin: 5px 0;
 }
 .properties__list {
+    margin-top: 30px;
     list-style-type: none;
     padding: 0;
 }
