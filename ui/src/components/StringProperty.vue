@@ -44,10 +44,7 @@
     </v-list-item> -->
 </template>
 
-<style>
-.property__container {
-}
-</style>
+<style></style>
 
 <script>
 import cgTextField from "./base/TextField";

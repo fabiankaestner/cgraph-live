@@ -1,6 +1,11 @@
 <template>
     <li :class="{ tabs__handle: true, 'tabs__handle--active': active }">
-        <span v-if="close" @click.prevent="$emit('close')">X</span>
+        <span
+            class="tabs__handle__close"
+            v-if="close"
+            @click.prevent="$emit('close')"
+            >X</span
+        >
         <span class="tabs__handle__title">{{ name }}</span>
     </li>
 </template>
@@ -28,6 +33,19 @@ export default {
     align-items: center;
     cursor: pointer;
     user-select: none;
+}
+
+.tabs__handle__title {
+    font-size: 0.9em;
+    padding-left: 5px;
+}
+
+.tybs__handle__close {
+    padding: 3px;
+    border-radius: 50%;
+    &:hover {
+        background-color: lighten($color-bg, 50);
+    }
 }
 
 .tabs__handle--active {
