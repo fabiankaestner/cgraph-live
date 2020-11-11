@@ -903,6 +903,16 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@iconify-icons/mdi@^1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@iconify-icons/mdi/-/mdi-1.0.20.tgz#cd7057a090b42ed7a726298891fccc239fd2fc14"
+  integrity sha512-lrfOyFTthtSyjSIjQ6ZSU6aj2hrAKfw2msoCBfD4Nxn2I0UMvraXGOh72PL+V0GtPxwkin0H1wyShIWVCvwUIQ==
+
+"@iconify/vue@^2.0.0-rc.2":
+  version "2.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@iconify/vue/-/vue-2.0.0-rc.2.tgz#34cf647e5c5eaf58e55cc693a5f0508d304c9208"
+  integrity sha512-iBUlsyqWWLMHKdmS1pjGnQmg92CQOshnZ5xdJ7TGASV42063q2R3gaKj2RNx03EIr2PGjF6mkeXQ+fYGQFzUdg==
+
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@intervolga/optimize-cssnano-plugin/-/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
@@ -911,11 +921,6 @@
     cssnano "^4.0.0"
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
-
-"@mdi/font@^5.8.55":
-  version "5.8.55"
-  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-5.8.55.tgz#1464155bcbc8a6e4af6dffd611fe8e38e09af285"
-  integrity sha512-8mrwfFBsmj+D67ZiGQSe5TU/lcWCtDyli2eshQ2fvLCZGRPqFMM23YQp4+JMOTpk5yMZKTeAwNWIYfITy76OHA==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
