@@ -35,5 +35,6 @@ export default {
 
     height: 35px;
     background-color: $color-bg-dark;
+    list-style-type: none;
 }
 </style>
