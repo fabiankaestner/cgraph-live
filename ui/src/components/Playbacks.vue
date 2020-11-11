@@ -1,11 +1,11 @@
 <template>
-    <Tree :tree="tree" @click="handleClick" />
+    <Tree :elements="tree" @click="handleClick" />
 </template>
 
 <style scoped></style>
 
 <script>
-import Tree from "./Tree";
+import Tree from "./Tree/Tree";
 
 export default {
     name: "Playbacks",

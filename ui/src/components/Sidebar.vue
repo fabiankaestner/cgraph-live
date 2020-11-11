@@ -3,39 +3,17 @@
         <cg-tab-bar :tabs="tabs" v-model="selectedTab" />
         <cg-tab-view v-model="selectedTab">
             <cg-rundowns />
+            <cg-playbacks />
+            <cg-data />
         </cg-tab-view>
     </cg-window>
-    <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
-        <v-tabs
-            v-model="tab"
-            color="primary"
-            dark
-            slider-color="primary"
-            fixed-tabs
-        >
-            <v-tab>Playbacks</v-tab>
-            <v-tab>Data</v-tab>
-            <v-tab>Rundowns</v-tab>
-        </v-tabs>
-        <v-tabs-items v-model="tab">
-            <v-tab-item key="Graphics">
-                <Playbacks />
-            </v-tab-item>
-            <v-tab-item key="Data">
-                <Data />
-            </v-tab-item>
-            <v-tab-item key="Rundowns">
-                <Rundowns />
-            </v-tab-item>
-        </v-tabs-items>
-    </v-card> -->
 </template>
 
 <script>
 import { ref } from "vue";
 
-// import Playbacks from "./Playbacks";
-// import Data from "./Data";
+import cgPlaybacks from "./Playbacks";
+import cgData from "./Data";
 import cgRundowns from "./Rundowns";
 import cgWindow from "./base/Window";
 import cgTabBar from "./Tabs/TabBar";
@@ -47,10 +25,12 @@ export default {
         cgWindow,
         cgTabBar,
         cgTabView,
-        cgRundowns
+        cgRundowns,
+        cgPlaybacks,
+        cgData
     },
     setup() {
-        const tabs = ["Rundown"];
+        const tabs = ["Rundowns", "Playbacks", "Data"];
         const selectedTab = ref(0);
 
         return {
