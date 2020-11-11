@@ -1,8 +1,8 @@
 <template>
     <div
-        @dragover="dragOver"
         @dragend.capture="handleDragEnd"
         @dragleave="handleDragLeave"
+        @drop.capture="handleDrop"
         class="tree__scroll-container"
     >
         <cg-sub-tree
@@ -34,15 +34,11 @@ export default {
         };
     },
     methods: {
-        dragStart(e) {
-            e.dataTransfer.dropEffect = "move";
-        },
-        dragOver(e) {
-            e.dataTransfer.dropEffect = "move";
-            e.preventDefault();
-        },
         handleCursor(cursor) {
             this.cursor = cursor;
+        },
+        handleDrop() {
+            console.log("Drop ", this.cursor);
         },
         handleDragEnd() {
             this.cursor = { path: [], placement: "" };

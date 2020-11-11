@@ -9,7 +9,6 @@
                 >
                     <cg-tree-item
                         :item="(({ children, ...rest }) => rest)(child)"
-                        :data-index="idx"
                         @click="handleClick(idx)"
                         @dblclick="handleDblclick(idx)"
                     />
@@ -88,6 +87,9 @@ export default {
             const offset = bounds.top;
             const height = bounds.bottom - offset;
 
+            e.dataTransfer.dropEffect = "move";
+            e.preventDefault();
+
             // calculate the cursor position
             if (e.clientY < offset + height / 2) {
                 // top half of the element
@@ -165,9 +167,13 @@ export default {
 </script>
 
 <style lang="scss">
+.tree__container {
+    position: relative;
+}
 .tree__separator {
     height: 0px;
     position: relative;
+    z-index: 10;
 }
 .tree__separator::before {
     content: "";
@@ -180,6 +186,8 @@ export default {
 }
 .tree__item__container {
     padding: 3px;
+    position: relative;
+    z-index: 20;
 }
 .tree__separator--active::before {
     opacity: 1;
