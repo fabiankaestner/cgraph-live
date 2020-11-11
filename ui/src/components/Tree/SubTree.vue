@@ -74,8 +74,8 @@ export default {
         cursorClass(idx) {
             // Returns css classes for the provided index
 
-            return `separator ${
-                this.isActiveCursor(idx) ? "separator__active" : ""
+            return `tree__separator ${
+                this.isActiveCursor(idx) ? "tree__separator--active" : ""
             }`;
         },
 
