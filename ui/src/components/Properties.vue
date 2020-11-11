@@ -1,16 +1,18 @@
 <template>
     <cg-window>
-        <h2>{{ name }}</h2>
-        <h6></h6>
-        <ul>
-            <cg-property
-                v-for="name in props"
-                :key="name"
-                :value="evalProp(name)"
-                @input="handleUpdate"
-            />
-        </ul>
-        <cg-button v-if="updated" @click="commit">Commit Changes</cg-button>
+        <div class="properties__container">
+            <h2 class="properties__title">{{ name }}</h2>
+            <h6 class="properties__address">{{ address }}</h6>
+            <ul class="properties__list">
+                <cg-property
+                    v-for="name in props"
+                    :key="name"
+                    :value="evalProp(name)"
+                    @input="handleUpdate"
+                />
+            </ul>
+            <cg-button v-if="updated" @click="commit">Commit Changes</cg-button>
+        </div>
     </cg-window>
     <!-- <v-card class="d-flex flex-column flex-grow-1 overflow-hidden">
         <v-card-title class="headline">{{ name }}</v-card-title>
@@ -113,14 +115,18 @@ export default {
 };
 </script>
 
-<style scoped>
-.v-window {
-    flex-grow: 1;
+<style>
+.properties__container {
+    padding: 20px;
 }
-.v-tabs {
-    flex: 0 0 auto !important;
+.properties__title {
+    margin: 15px 0 0;
 }
-.v-icon {
-    margin-right: 10px;
+.properties__address {
+    margin: 5px 0;
+}
+.properties__list {
+    list-style-type: none;
+    padding: 0;
 }
 </style>

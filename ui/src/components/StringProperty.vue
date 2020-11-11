@@ -1,6 +1,9 @@
 <template>
-    <li>
-        <cg-text-field v-model="v" :label="value.name"></cg-text-field>
+    <li class="property__container">
+        <cg-text-field
+            v-model="v"
+            :label="`${value.name} <${value.type}>`"
+        ></cg-text-field>
         <span>{{ value.inherited }}</span>
     </li>
     <!-- <v-list-item>
@@ -41,6 +44,11 @@
     </v-list-item> -->
 </template>
 
+<style>
+.property__container {
+}
+</style>
+
 <script>
 import cgTextField from "./base/TextField";
 
@@ -80,10 +88,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-.v-btn {
-    margin-top: -28px;
-    margin-left: 10px;
-}
-</style>
