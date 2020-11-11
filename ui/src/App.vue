@@ -26,6 +26,7 @@ body {
     background-color: $color-bg;
     color: $color-fg;
     font-family: "Roboto";
+    font-size: 0.95em;
 }
 
 #app {
