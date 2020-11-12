@@ -2,7 +2,7 @@
     <div
         @dragend.capture="handleDragEnd"
         @dragleave="handleDragLeave"
-        @drop.capture="handleDrop"
+        @dragstart.capture="handleDragStart"
         class="tree__scroll-container"
     >
         <cg-sub-tree
@@ -38,8 +38,21 @@ export default {
         handleCursor(cursor) {
             this.cursor = cursor;
         },
-        handleDrop() {
-            console.log("Drop ", this.cursor);
+        handleDrop(event) {
+            console.log(event);
+            console.log(event.dataTransfer.getData("nodes"));
+            // this.$emit("drop", );
+        },
+        handleDragStart(event) {
+            console.log("start");
+            event.dataTransfer.setData(
+                "text/plain",
+                JSON.stringify({
+                    source: this.address,
+                    nodes: this.$store.state.local.treeSelections[this.address]
+                })
+            );
+            console.log(event);
         },
         handleDragEnd() {
             this.cursor = { path: [], placement: "" };
