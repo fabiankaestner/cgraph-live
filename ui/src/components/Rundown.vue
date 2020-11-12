@@ -7,6 +7,7 @@ import cgTree from "./Tree/Tree";
 
 import { transformStateToDisplayTree } from "common/helpers/display_tree";
 import { getPathFromState } from "common/helpers/getters";
+import { containsPath } from "common/helpers/path";
 
 export default {
     name: "Rundown",
@@ -24,11 +25,26 @@ export default {
                 address: node.data.address
             });
             if (node.keys.ctrl) {
-                this.$store.commit("local/select_tree_add", {
-                    address: `/rundown/${this.$props.address}`,
-                    selectedPath: node.path,
-                    selectedAddress: node.data.address
-                });
+                if (
+                    containsPath(
+                        this.$store.state.local.treeSelections[
+                            `/rundown/${this.$props.address}`
+                        ].map(o => o.path),
+                        node.path
+                    )
+                ) {
+                    console.log("herer");
+                    this.$store.commit("local/deselect_tree", {
+                        address: `/rundown/${this.$props.address}`,
+                        selectedPath: node.path
+                    });
+                } else {
+                    this.$store.commit("local/select_tree_add", {
+                        address: `/rundown/${this.$props.address}`,
+                        selectedPath: node.path,
+                        selectedAddress: node.data.address
+                    });
+                }
             } else {
                 this.$store.commit("local/select_tree", {
                     address: `/rundown/${this.$props.address}`,
