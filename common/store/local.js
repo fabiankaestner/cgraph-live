@@ -1,4 +1,4 @@
-import { comparePath } from "../helpers/path";
+import { comparePath, containsPath } from "../helpers/path";
 
 export default {
     namespaced: true,
@@ -22,6 +22,16 @@ export default {
             state.properties = address;
         },
         select_tree_add(state, { address, selectedPath, selectedAddress }) {
+            if (
+                containsPath(
+                    state.treeSelections[address].map((o) => o.path),
+                    selectedPath
+                )
+            ) {
+                // don't add the node if it is already selected
+                return;
+            }
+
             if (state.treeSelections[address]) {
                 state.treeSelections[address].push({
                     path: selectedPath,

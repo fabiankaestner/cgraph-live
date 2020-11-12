@@ -16,8 +16,6 @@ export function comparePath(p1, p2) {
 export function containsPath(arr, path) {
     // check if the array contains a given path
 
-    console.log(arr);
-
     for (let compare of arr) {
         console.log(compare, path);
         if (comparePath(compare, path)) {
