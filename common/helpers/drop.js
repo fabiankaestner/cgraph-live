@@ -1,15 +1,9 @@
 import { getStrAddressFromState } from "./getters";
 
-export function drop(state, { source, nodes, cursor }) {
+export function drop(state, { source, nodes = [], cursor = {} }) {
     // move a node in the rundown tree
 
-    console.log(cursor);
-
     const { tree } = getStrAddressFromState(state, source);
-
-    console.log(cursor);
-
-    console.log(tree);
 
     if (tree) {
         const toDelete = [];
@@ -51,17 +45,25 @@ export function drop(state, { source, nodes, cursor }) {
             if (cursor.position === "after") {
                 insertIdx = insertIdx + 1;
             }
-            console.log();
             ptr.splice(insertIdx, 0, ...toDelete.map(({ node }) => node));
         }
 
-        const deletedAtAddress = {};
+        // set selection to new nodes
+        const selection = [];
+        for (let i = 0; i < nodes.length; i++) {
+            const newNode = {
+                ...nodes[i],
+                path: [...cursor.path],
+            };
+            newNode.path[cursor.path.length - 1] = insertIdx + i;
+            selection.push(newNode);
+        }
+        state.local.treeSelections[source] = selection;
 
-        console.log(toDelete);
+        const deletedAtAddress = {};
 
         // delete the marked nodes
         for (let { idx, address } of toDelete) {
-            console.log(address);
             let calc_idx = idx;
             if (deletedAtAddress[address]) {
                 deletedAtAddress[address].push(idx);
@@ -78,7 +80,6 @@ export function drop(state, { source, nodes, cursor }) {
                 0
             );
             calc_idx -= offset;
-            console.log("deleting ", address, " ", calc_idx, offset);
             getStrAddressFromState(state, address).tree.splice(calc_idx, 1);
         }
     }

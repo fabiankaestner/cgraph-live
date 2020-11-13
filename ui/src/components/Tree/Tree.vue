@@ -40,10 +40,11 @@ export default {
             this.cursor = cursor;
         },
         handleDrop(event) {
-            const data = {
-                ...JSON.parse(event.dataTransfer.getData("text/plain")),
-                cursor: this.cursor
-            };
+            const data = JSON.parse(event.dataTransfer.getData("text/plain"));
+            console.log(JSON.parse(JSON.stringify(data.nodes)));
+            data.cursor = this.cursor;
+            console.log(data.nodes);
+            console.log("DATA PARSED", data);
             this.$emit("drop", data);
             this.handleDragEnd();
             event.preventDefault();
@@ -54,6 +55,7 @@ export default {
                 source: this.address,
                 nodes: this.$store.state.local.treeSelections[this.address]
             });
+            console.log("DATA:", data);
             event.dataTransfer.setData("text/plain", data);
             console.log(event);
         },
