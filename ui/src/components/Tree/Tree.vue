@@ -57,7 +57,7 @@ export default {
             console.log(event);
         },
         handleDragEnd() {
-            this.cursor = { path: [], placement: "" };
+            this.cursor = { path: [], position: "" };
         },
         handleDragLeave(e) {
             const parent = this.$el.parentElement;

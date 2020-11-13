@@ -60,13 +60,13 @@ export default {
             }
 
             if (
-                (this.pathIdx === idx && this.placement === "before") ||
-                (this.pathIdx === idx - 1 && this.placement === "after")
+                (this.pathIdx === idx && this.position === "before") ||
+                (this.pathIdx === idx - 1 && this.position === "after")
             ) {
                 return true;
             }
 
-            if (idx === 0 && this.placement === "inside") {
+            if (idx === 0 && this.position === "inside") {
                 return true;
             }
         },
@@ -93,20 +93,20 @@ export default {
             // calculate the cursor position
             if (e.clientY < offset + height / 2) {
                 // top half of the element
-                this.$emit("cursor", { path: [idx], placement: "before" });
+                this.$emit("cursor", { path: [idx], position: "before" });
             } else if (idx && this.elements[idx].children) {
                 // It's a group, place inside not after
-                this.$emit("cursor", { path: [idx], placement: "inside" });
+                this.$emit("cursor", { path: [idx], position: "inside" });
             } else {
                 // bottom half of the element and not a group
-                this.$emit("cursor", { path: [idx], placement: "after" });
+                this.$emit("cursor", { path: [idx], position: "after" });
             }
         },
 
-        handleCursor({ path: _path, placement }, idx) {
+        handleCursor({ path: _path, position }, idx) {
             // Bubble cursor events up the tree
 
-            this.$emit("cursor", { path: [idx, ..._path], placement });
+            this.$emit("cursor", { path: [idx, ..._path], position });
         },
 
         getEventFor(idx, bubbledEvent) {
@@ -140,16 +140,16 @@ export default {
         },
         childCursor(idx) {
             if (
-                (placement === "inside" && this.cursor.path.length === 1) ||
+                (position === "inside" && this.cursor.path.length === 1) ||
                 idx !== this.pathIdx
             ) {
                 // prevent cursor on child elements if inside this group
                 // or child elements that are not in the path
-                return { path: [], placement: "" };
+                return { path: [], position: "" };
             }
-            const { path, placement } = this.cursor;
+            const { path, position } = this.cursor;
             const [, ...newPath] = path;
-            return { path: newPath, placement };
+            return { path: newPath, position };
         }
     },
     computed: {
@@ -157,17 +157,16 @@ export default {
             return this.cursor.path[0];
         },
 
-        placement() {
-            return this.cursor.placement;
+        position() {
+            return this.cursor.position;
         },
 
         cursorActive() {
             // Check if this element is the correct level, or a child/parent element
 
             return (
-                (this.cursor.path.length === 1 &&
-                    this.placement !== "inside") ||
-                (this.cursor.path.length === 0 && this.placement === "inside")
+                (this.cursor.path.length === 1 && this.position !== "inside") ||
+                (this.cursor.path.length === 0 && this.position === "inside")
             );
         }
     }
