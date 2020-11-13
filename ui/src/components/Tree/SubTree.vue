@@ -109,26 +109,34 @@ export default {
             this.$emit("cursor", { path: [idx, ..._path], position });
         },
 
-        getEventFor(idx, bubbledEvent) {
-            // returns the click/dblclick event for a given idx
+        getEventFor(idx, event) {
+            // returns the next event for a bubbled event
 
-            const path = bubbledEvent.isCustom
-                ? [idx, ...bubbledEvent.path]
-                : [idx];
-            const data = bubbledEvent.isCustom
-                ? bubbledEvent.data
-                : this.elements[idx].data;
-            const keys = bubbledEvent.isCustom
-                ? bubbledEvent.keys
-                : {
-                      ctrl: bubbledEvent.getModifierState("Control")
-                  };
-            return {
-                isCustom: true,
-                path,
-                data,
-                keys
-            };
+            let _event = {};
+
+            if (event.isCustom) {
+                // we already have a bubbled event, simply modify the path
+                _event = {
+                    ...event,
+                    path: [idx, ...event.path]
+                };
+            } else {
+                // we have a native event
+                _event = {
+                    path: [idx],
+                    data: this.elements[idx].data,
+                    keys: {
+                        ctrl: event.getModifierState("Control")
+                    },
+                    isCustom: true
+                };
+            }
+
+            return _event;
+        },
+
+        bubbleEvent(idx, name, event) {
+            this.$emit(name, this.getEventFor(idx, event));
         },
 
         handleClick(idx, bubbledEvent) {
@@ -138,6 +146,7 @@ export default {
         handleDblclick(idx, bubbledEvent) {
             this.$emit("dblclick", this.getEventFor(idx, bubbledEvent));
         },
+
         childCursor(idx) {
             if (
                 (position === "inside" && this.cursor.path.length === 1) ||
