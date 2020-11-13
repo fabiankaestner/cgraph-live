@@ -2,7 +2,8 @@
     <div
         @dragend.capture="handleDragEnd"
         @dragleave="handleDragLeave"
-        @dragstart.capture="handleDragStart"
+        @dragstart="handleDragStart"
+        @drop.capture="handleDrop"
         class="tree__scroll-container"
     >
         <cg-sub-tree
@@ -25,7 +26,7 @@ export default {
         elements: Object,
         address: String
     },
-    emits: ["click", "dblclick"],
+    emits: ["click", "dblclick", "drop"],
     components: {
         cgSubTree
     },
@@ -39,19 +40,20 @@ export default {
             this.cursor = cursor;
         },
         handleDrop(event) {
-            console.log(event);
-            console.log(event.dataTransfer.getData("nodes"));
-            // this.$emit("drop", );
+            const data = {
+                ...JSON.parse(event.dataTransfer.getData("text/plain")),
+                cursor: this.cursor
+            };
+            this.$emit("drop", data);
+            event.preventDefault();
         },
         handleDragStart(event) {
             console.log("start");
-            event.dataTransfer.setData(
-                "text/plain",
-                JSON.stringify({
-                    source: this.address,
-                    nodes: this.$store.state.local.treeSelections[this.address]
-                })
-            );
+            const data = JSON.stringify({
+                source: this.address,
+                nodes: this.$store.state.local.treeSelections[this.address]
+            });
+            event.dataTransfer.setData("text/plain", data);
             console.log(event);
         },
         handleDragEnd() {

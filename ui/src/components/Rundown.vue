@@ -1,5 +1,10 @@
 <template>
-    <cg-tree @drop="handleDrop" @click="handleClick" :elements="tree_data" />
+    <cg-tree
+        @drop="handleDrop"
+        @click="handleClick"
+        :elements="tree_data"
+        :address="`/rundown/${address}`"
+    />
 </template>
 
 <script>
