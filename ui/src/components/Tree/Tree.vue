@@ -45,6 +45,7 @@ export default {
                 cursor: this.cursor
             };
             this.$emit("drop", data);
+            this.handleDragEnd();
             event.preventDefault();
         },
         handleDragStart(event) {
